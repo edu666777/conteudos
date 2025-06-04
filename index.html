@@ -3,310 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vozes Verbais: Aprenda e Pratique</title>
+    <title>Estudos 8º Ano</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
-        .tab-button.active {
-            background-color: #0369a1;
-            color: white;
+        .menu-btn {
+            transition: transform 0.1s, box-shadow 0.2s;
         }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .accordion-button.open + .accordion-content {
-            max-height: 500px;
-        }
-        .quiz-option:disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        .correct-answer {
-            background-color: #10b981 !important;
-            color: white !important;
-            border-color: #059669 !important;
-        }
-        .wrong-answer {
-            background-color: #ef4444 !important;
-            color: white !important;
-            border-color: #dc2626 !important;
+        .menu-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 24px 0 rgba(2,132,199,0.10);
         }
     </style>
-    <!-- Chosen Palette: Warm Neutrals with Sky Blue accent -->
-    <!-- Application Structure Plan: A two-section single-page application. The first section, 'Aprender', uses an accordion layout to present the grammatical explanations in a digestible, non-linear way, allowing users to focus on one concept at a time. The second section, 'Praticar', is an interactive quiz that presents one question at a time, provides immediate feedback, and tracks the score. This structure separates study from practice, a proven pedagogical approach, making the learning process more engaging and effective than a static document. Navigation between sections is handled by two main buttons, providing a clear user flow. -->
-    <!-- Visualization & Content Choices: Report Info: Grammatical rules and examples -> Goal: Inform/Organize -> Viz/Presentation: Accordion layout for the 'Aprender' section. Interaction: Click to expand/collapse. Justification: Organizes complex information into manageable, user-controlled chunks, improving readability and reducing cognitive load. Report Info: Exercise questions and answers -> Goal: Test knowledge/Compare -> Viz/Presentation: Interactive quiz interface. Interaction: Clickable answer buttons, immediate visual feedback (color change), display of correct answer and explanation, score tracking. Justification: Actively engages the user, reinforces learning through instant feedback, and gamifies the experience with a final score, increasing motivation. Library/Method: All interactions and layouts are built with Vanilla JS and Tailwind CSS. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
-<body class="bg-stone-100 text-slate-800">
+<body class="bg-stone-100 text-slate-800 min-h-screen flex items-center justify-center">
 
-    <div class="container mx-auto max-w-4xl p-4 sm:p-8">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-sky-800">Vozes Verbais: Aprenda e Pratique</h1>
-            <p class="text-slate-600 mt-2">Uma ferramenta interativa para dominar a gramática portuguesa.</p>
-            <a href="./matematica.html" class="inline-block mt-4 px-6 py-2 bg-amber-500 text-white font-semibold rounded-lg shadow hover:bg-amber-600 transition-colors">
-                Ir para Matemática
+    <div class="container mx-auto max-w-lg p-6 sm:p-10 bg-white rounded-xl shadow-lg text-center">
+        <h1 class="text-4xl font-bold text-sky-800 mb-2">Estudos 8º Ano</h1>
+        <p class="text-slate-600 mb-8">Escolha um conteúdo para começar a estudar:</p>
+        <div class="flex flex-col gap-6">
+            <a href="vozes.html" class="menu-btn px-8 py-5 bg-sky-600 text-white text-xl font-semibold rounded-lg shadow hover:bg-sky-700 transition-colors flex items-center justify-center gap-3">
+                <span>📚 Vozes Verbais</span>
             </a>
-        </header>
-
-        <nav class="flex justify-center mb-8 bg-white p-2 rounded-lg shadow-sm">
-            <button id="btn-learn" class="tab-button active flex-1 sm:flex-none text-center py-2 px-6 font-semibold rounded-md transition-colors duration-300">Aprender</button>
-            <button id="btn-practice" class="tab-button flex-1 sm:flex-none text-center py-2 px-6 font-semibold rounded-md transition-colors duration-300">Praticar</button>
-        </nav>
-
-        <main>
-            <section id="learn-section">
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <h2 class="text-2xl font-bold mb-4 text-sky-700">O que são Vozes Verbais?</h2>
-                    <p class="mb-6">As vozes verbais indicam a relação entre o sujeito da oração e a ação expressa pelo verbo. Elas mostram se o sujeito pratica, recebe, ou pratica e recebe a ação ao mesmo tempo. Clique nos tópicos abaixo para expandir e ver os detalhes de cada voz.</p>
-                    
-                    <div id="accordion-container" class="space-y-3">
-                    </div>
-
-                    <div class="mt-6 p-4 bg-sky-50 border border-sky-200 rounded-lg">
-                        <h3 class="font-bold text-lg text-sky-800">💡 Dicas para Identificar</h3>
-                        <ul class="list-disc list-inside mt-2 space-y-1 text-slate-700">
-                            <li><strong class="font-semibold">Voz Ativa:</strong> O sujeito faz a ação.</li>
-                            <li><strong class="font-semibold">Voz Passiva Analítica:</strong> Verbo "ser/estar/ficar" + particípio. O sujeito recebe a ação.</li>
-                            <li><strong class="font-semibold">Voz Passiva Sintética:</strong> Verbo + "se". Tente converter para a analítica para confirmar.</li>
-                            <li><strong class="font-semibold">Voz Reflexiva:</strong> A ação volta para o próprio sujeito que a pratica.</li>
-                            <li><strong class="font-semibold">Voz Recíproca:</strong> Ação trocada entre os elementos de um sujeito plural.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="practice-section" class="hidden">
-                 <div class="bg-white p-6 rounded-lg shadow">
-                    <h2 class="text-2xl font-bold mb-2 text-sky-700">Teste seus Conhecimentos</h2>
-                    <p class="mb-6">Leia cada frase e classifique a voz verbal. Você receberá feedback imediato para cada resposta. Boa sorte!</p>
-
-                    <div id="quiz-container">
-                        <p id="question-progress" class="text-center font-semibold text-slate-600 mb-4"></p>
-                        <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center">
-                            <p id="question-text" class="text-xl italic"></p>
-                        </div>
-                        <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                        </div>
-                        <div id="feedback-container" class="mt-4 p-4 rounded-lg text-center hidden">
-                            <p id="feedback-text" class="font-semibold"></p>
-                            <p id="feedback-explanation" class="text-sm mt-1"></p>
-                        </div>
-                        <div class="text-center mt-6">
-                            <button id="next-question-btn" class="hidden py-2 px-8 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition-colors">Próxima</button>
-                        </div>
-                    </div>
-                    
-                    <div id="score-container" class="hidden text-center py-8">
-                        <h3 class="text-2xl font-bold text-sky-800">Quiz Finalizado!</h3>
-                        <p id="score-text" class="text-lg mt-2"></p>
-                        <div id="score-visual" class="w-full bg-stone-200 rounded-full h-4 my-4 overflow-hidden">
-                            <div id="score-bar" class="bg-emerald-500 h-4 rounded-full transition-all duration-500"></div>
-                        </div>
-                        <button id="restart-quiz-btn" class="mt-6 py-2 px-8 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition-colors">Tentar Novamente</button>
-                    </div>
-                </div>
-            </section>
-        </main>
+            <a href="matematica.html" class="menu-btn px-8 py-5 bg-amber-500 text-white text-xl font-semibold rounded-lg shadow hover:bg-amber-600 transition-colors flex items-center justify-center gap-3">
+                <span>🧮 Equação com fração - Mat I</span>
+            </a>
+        </div>
+        <footer class="mt-10 text-slate-400 text-sm">
+            Para alunos do <strong>8º ano</strong> &middot; Desenvolvido para facilitar seus estudos!
+        </footer>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const learnSection = document.getElementById('learn-section');
-            const practiceSection = document.getElementById('practice-section');
-            const btnLearn = document.getElementById('btn-learn');
-            const btnPractice = document.getElementById('btn-practice');
-
-            const accordionContainer = document.getElementById('accordion-container');
-            const quizContainer = document.getElementById('quiz-container');
-            const scoreContainer = document.getElementById('score-container');
-            const questionProgress = document.getElementById('question-progress');
-            const questionText = document.getElementById('question-text');
-            const optionsContainer = document.getElementById('options-container');
-            const feedbackContainer = document.getElementById('feedback-container');
-            const feedbackText = document.getElementById('feedback-text');
-            const feedbackExplanation = document.getElementById('feedback-explanation');
-            const nextQuestionBtn = document.getElementById('next-question-btn');
-            const restartQuizBtn = document.getElementById('restart-quiz-btn');
-            const scoreText = document.getElementById('score-text');
-            const scoreBar = document.getElementById('score-bar');
-
-            const learnData = [
-                {
-                    title: '1. Voz Ativa',
-                    content: 'Na voz ativa, o sujeito é o <strong>agente</strong> da ação verbal, ou seja, é ele quem pratica a ação.<br><br><strong>Estrutura comum:</strong> Sujeito Agente + Verbo + Complemento<br><strong>Exemplo:</strong> <em>O menino</em> quebrou o vaso.'
-                },
-                {
-                    title: '2. Voz Passiva',
-                    content: 'Na voz passiva, o sujeito é o <strong>paciente</strong> da ação verbal, ou seja, ele recebe ou sofre a ação. O agente da ação, se expresso, é introduzido geralmente pelas preposições "por" ou "de".'
-                },
-                {
-                    title: '2a. Voz Passiva Analítica',
-                    content: 'É formada por um verbo auxiliar (geralmente <strong>ser</strong>) seguido do particípio do verbo principal.<br><br><strong>Estrutura comum:</strong> Sujeito Paciente + Verbo Auxiliar + Particípio<br><strong>Exemplo:</strong> <em>O vaso</em> foi quebrado pelo menino.'
-                },
-                {
-                    title: '2b. Voz Passiva Sintética (ou Pronominal)',
-                    content: 'É formada por um verbo na 3ª pessoa, seguido do pronome apassivador <strong>"se"</strong>.<br><br><strong>Estrutura comum:</strong> Verbo (3ª pessoa) + "se" + Sujeito Paciente<br><strong>Exemplo:</strong> Quebrou-<em>se</em> o vaso. (Equivale a: O vaso foi quebrado)'
-                },
-                {
-                    title: '3. Voz Reflexiva',
-                    content: 'Na voz reflexiva, o sujeito é ao mesmo tempo <strong>agente e paciente</strong>. Ele pratica a ação sobre si mesmo, usando pronomes como me, te, se, nos, vos.<br><br><strong>Estrutura comum:</strong> Sujeito + Verbo + Pronome Reflexivo<br><strong>Exemplo:</strong> <em>O menino</em> feriu-<em>se</em>.'
-                },
-                {
-                    title: '4. Voz Recíproca',
-                    content: 'É uma subdivisão da voz reflexiva. Ocorre quando a ação é mútua ou trocada entre os elementos de um sujeito plural.<br><br><strong>Estrutura comum:</strong> Sujeito (plural) + Verbo + Pronome Recíproco<br><strong>Exemplo:</strong> <em>Os lutadores</em> agrediram-<em>se</em>.'
-                },
-            ];
-
-            const quizData = [
-                { question: "O vento forte derrubou a árvore antiga.", answer: "Voz Ativa", explanation: "O sujeito 'O vento forte' praticou a ação de derrubar." },
-                { question: "Venderam-se todas as casas do condomínio.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Todas as casas do condomínio foram vendidas'." },
-                { question: "A proposta foi aceita por todos os diretores.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'A proposta' sofreu a ação de ser aceita." },
-                { question: "O atleta machucou-se durante o treino.", answer: "Voz Reflexiva", explanation: "O atleta machucou a si mesmo." },
-                { question: "Os noivos se beijaram apaixonadamente.", answer: "Voz Recíproca", explanation: "A ação de beijar foi mútua entre os noivos." },
-                { question: "Nós construímos um futuro melhor.", answer: "Voz Ativa", explanation: "O sujeito 'Nós' praticou a ação de construir." },
-                { question: "Precisa-se de voluntários para o evento.", answer: "Voz Ativa", explanation: "Atenção! O 'se' é índice de indeterminação do sujeito, pois o verbo é transitivo indireto. O sujeito que pratica a ação é indeterminado." },
-                { question: "A criança se vestiu sozinha para a festa.", answer: "Voz Reflexiva", explanation: "A criança vestiu a si mesma." },
-                { question: "As cartas foram entregues pelo carteiro esta manhã.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'As cartas' sofreu a ação de ser entregue." },
-                { question: "Os jogadores se cumprimentaram antes da partida.", answer: "Voz Recíproca", explanation: "A ação de cumprimentar foi trocada entre os jogadores." },
-                { question: "Alguém esqueceu este guarda-chuva aqui.", answer: "Voz Ativa", explanation: "O sujeito 'Alguém' praticou a ação de esquecer." },
-                { question: "As regras do jogo foram explicadas claramente.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'As regras do jogo' sofreu a ação de ser explicado." },
-                { question: "O gato se escondeu debaixo da cama.", answer: "Voz Reflexiva", explanation: "O gato escondeu a si mesmo." },
-                { question: "Consertam-se relógios nesta loja.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Relógios são consertados nesta loja'." },
-                { question: "Eles se amam verdadeiramente.", answer: "Voz Recíproca", explanation: "A ação de amar é mútua entre eles." }
-            ];
-            
-            const allOptions = ["Voz Ativa", "Voz Passiva Analítica", "Voz Passiva Sintética", "Voz Reflexiva", "Voz Recíproca"];
-            let currentQuestionIndex = 0;
-            let score = 0;
-            let shuffledQuizData = [];
-
-            function switchView(view) {
-                if (view === 'learn') {
-                    learnSection.classList.remove('hidden');
-                    practiceSection.classList.add('hidden');
-                    btnLearn.classList.add('active');
-                    btnPractice.classList.remove('active');
-                } else {
-                    learnSection.classList.add('hidden');
-                    practiceSection.classList.remove('hidden');
-                    btnLearn.classList.remove('active');
-                    btnPractice.classList.add('active');
-                    startQuiz();
-                }
-            }
-
-            btnLearn.addEventListener('click', () => switchView('learn'));
-            btnPractice.addEventListener('click', () => switchView('practice'));
-
-            function createAccordion() {
-                accordionContainer.innerHTML = '';
-                learnData.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'border border-stone-200 rounded-lg';
-                    div.innerHTML = `
-                        <button class="accordion-button w-full p-4 text-left font-semibold text-lg flex justify-between items-center hover:bg-stone-50 transition-colors">
-                            <span>${item.title}</span>
-                            <span class="transform transition-transform duration-300">&#9662;</span>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="p-4 border-t border-stone-200 text-slate-700">
-                                <p>${item.content}</p>
-                            </div>
-                        </div>
-                    `;
-                    accordionContainer.appendChild(div);
-                });
-
-                document.querySelectorAll('.accordion-button').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const icon = button.querySelector('span:last-child');
-                        const isOpen = button.classList.toggle('open');
-                        icon.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-                    });
-                });
-            }
-
-            function startQuiz() {
-                currentQuestionIndex = 0;
-                score = 0;
-                shuffledQuizData = [...quizData].sort(() => Math.random() - 0.5);
-                quizContainer.classList.remove('hidden');
-                scoreContainer.classList.add('hidden');
-                showQuestion();
-            }
-
-            function showQuestion() {
-                feedbackContainer.classList.add('hidden');
-                nextQuestionBtn.classList.add('hidden');
-
-                const question = shuffledQuizData[currentQuestionIndex];
-                questionProgress.textContent = `Questão ${currentQuestionIndex + 1} de ${shuffledQuizData.length}`;
-                questionText.textContent = question.question;
-                
-                optionsContainer.innerHTML = '';
-                allOptions.forEach(option => {
-                    const button = document.createElement('button');
-                    button.textContent = option;
-                    button.className = "quiz-option w-full p-3 border-2 border-stone-300 rounded-lg hover:bg-stone-200 transition-colors";
-                    button.addEventListener('click', () => selectAnswer(option, question.answer, question.explanation));
-                    optionsContainer.appendChild(button);
-                });
-            }
-
-            function selectAnswer(selectedOption, correctAnswer, explanation) {
-                const buttons = optionsContainer.querySelectorAll('button');
-                let isCorrect = selectedOption === correctAnswer;
-
-                if (isCorrect) {
-                    score++;
-                    feedbackText.textContent = '🎉 Correto!';
-                    feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
-                } else {
-                    feedbackText.textContent = '🤔 Incorreto!';
-                    feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
-                }
-
-                feedbackExplanation.innerHTML = `<strong>Resposta:</strong> ${explanation}`;
-                feedbackContainer.classList.remove('hidden');
-
-                buttons.forEach(button => {
-                    button.disabled = true;
-                    if (button.textContent === correctAnswer) {
-                        button.classList.add('correct-answer');
-                    } else if (button.textContent === selectedOption && !isCorrect) {
-                        button.classList.add('wrong-answer');
-                    }
-                });
-
-                nextQuestionBtn.classList.remove('hidden');
-            }
-            
-            function showScore() {
-                quizContainer.classList.add('hidden');
-                scoreContainer.classList.remove('hidden');
-                scoreText.textContent = `Você acertou ${score} de ${shuffledQuizData.length} questões.`;
-                const percentage = (score / shuffledQuizData.length) * 100;
-                scoreBar.style.width = `${percentage}%`;
-            }
-
-            nextQuestionBtn.addEventListener('click', () => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < shuffledQuizData.length) {
-                    showQuestion();
-                } else {
-                    showScore();
-                }
-            });
-            
-            restartQuizBtn.addEventListener('click', startQuiz);
-
-            createAccordion();
-        });
-    </script>
 </body>
 </html>
