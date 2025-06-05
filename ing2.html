@@ -64,6 +64,10 @@
 </head>
 <body class="bg-stone-100 text-slate-800">
 
+    <!-- Adicione os efeitos sonoros logo após a abertura do <body> -->
+    <audio id="audio-correct" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae0b2.mp3"></audio>
+    <audio id="audio-wrong" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7bfa.mp3"></audio>
+
     <div class="container mx-auto max-w-4xl p-4 sm:p-8">
         <header class="text-center mb-8">
             <h1 class="text-3xl sm:text-4xl font-bold text-sky-800">Inglês - 8º Ano: Simple Present, Past & Future</h1>
@@ -315,11 +319,17 @@
                 const buttons = optionsContainer.querySelectorAll('button');
                 let isCorrect = selectedOption === correctAnswer;
 
+                // Efeitos sonoros
+                const audioCorrect = document.getElementById('audio-correct');
+                const audioWrong = document.getElementById('audio-wrong');
                 if (isCorrect) {
-                    score++;
+                    audioCorrect.currentTime = 0;
+                    audioCorrect.play();
                     feedbackText.textContent = '🎉 Correto!';
                     feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
                 } else {
+                    audioWrong.currentTime = 0;
+                    audioWrong.play();
                     feedbackText.textContent = '🤔 Incorreto!';
                     feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
                 }
