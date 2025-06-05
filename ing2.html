@@ -52,21 +52,18 @@
             color: #075985; /* sky-800 for example sentences */
             margin-left: 1rem;
         }
+        .quiz-option {
+            text-align: left; /* Align text to the left for sentence options */
+            padding-left: 1rem; /* Add some padding for better readability */
+        }
     </style>
     <!-- Chosen Palette: Warm Neutrals with Sky Blue accent (Consistent with previous apps) -->
-    <!-- Application Structure Plan: Two-section SPA. 'Aprender' section uses an accordion for step-by-step explanations of Simple Present, Simple Past, and Simple Future (will), relevant to 8th grade (uses, forms, adverbs/time expressions). 'Praticar' section is an interactive quiz with immediate feedback and score tracking. This structure separates learning from application, aiding comprehension and retention. Navigation is via two main buttons. -->
-    <!-- Visualization & Content Choices: Report Info: Simplified English grammar concepts (Simple Present, Simple Past, Simple Future) for 8th grade -> Goal: Inform/Organize -> Viz/Presentation: Accordion in 'Aprender'. Interaction: Expand/collapse. Justification: Breaks down grammatical information into digestible steps suitable for the age group. Report Info: Age-appropriate grammar exercises & solutions -> Goal: Test knowledge/Compare -> Viz/Presentation: Interactive quiz in 'Praticar'. Interaction: Clickable answers, feedback, score. Justification: Active learning, immediate reinforcement. Library/Method: Vanilla JS & Tailwind CSS. Content presented as styled text. -->
+    <!-- Application Structure Plan: Two-section SPA. 'Aprender' section uses an accordion for step-by-step explanations of Simple Present, Simple Past, and Simple Future (will), relevant to 8th grade (uses, forms, adverbs/time expressions). 'Praticar' section is an interactive quiz with a new format: display base sentence, ask to convert to target tense, provide multiple choice full sentences. This structure separates learning from application, aiding comprehension and retention. Navigation is via two main buttons. -->
+    <!-- Visualization & Content Choices: Report Info: Simplified English grammar concepts (Simple Present, Simple Past, Simple Future) for 8th grade -> Goal: Inform/Organize -> Viz/Presentation: Accordion in 'Aprender'. Interaction: Expand/collapse. Justification: Breaks down grammatical information into digestible steps suitable for the age group. Report Info: Age-appropriate grammar exercises (sentence transformation) & solutions -> Goal: Test knowledge/Compare -> Viz/Presentation: Interactive quiz in 'Praticar'. Interaction: Clickable answers, feedback, score. Justification: Active learning, immediate reinforcement. Library/Method: Vanilla JS & Tailwind CSS. Content presented as styled text. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 <body class="bg-stone-100 text-slate-800">
-    <div class="flex flex-col sm:flex-row gap-2 justify-center mt-4">
-        <a href="index.html" class="inline-block px-6 py-2 bg-stone-400 text-white font-semibold rounded-lg shadow hover:bg-stone-500 transition-colors">
-            ⬅ Voltar para o Início
-        </a>
-        <a href="ing2.html" class="inline-block px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow hover:bg-purple-700 transition-colors">
-            Ir para Quiz de Transformação
-        </a>
-    </div>
+
     <div class="container mx-auto max-w-4xl p-4 sm:p-8">
         <header class="text-center mb-8">
             <h1 class="text-3xl sm:text-4xl font-bold text-sky-800">Inglês - 8º Ano: Simple Present, Past & Future</h1>
@@ -76,7 +73,7 @@
         <nav class="flex justify-center mb-8 bg-white p-2 rounded-lg shadow-sm">
             <button id="btn-learn" class="tab-button active flex-1 sm:flex-none text-center py-2 px-6 font-semibold rounded-md transition-colors duration-300">Aprender</button>
             <button id="btn-practice" class="tab-button flex-1 sm:flex-none text-center py-2 px-6 font-semibold rounded-md transition-colors duration-300">Praticar</button>
-        </nav
+        </nav>
 
         <main>
             <section id="learn-section">
@@ -109,14 +106,15 @@
             <section id="practice-section" class="hidden">
                  <div class="bg-white p-6 rounded-lg shadow">
                     <h2 class="text-2xl font-bold mb-2 text-sky-700">Hora de Praticar!</h2>
-                    <p class="mb-6 content-text">Mostre que você aprendeu! Complete as frases e escolha a melhor opção para cada situação, usando o Simple Present, Simple Past ou Simple Future.</p>
+                    <p class="mb-6 content-text">Veja a frase original e a instrução. Escolha a opção que modifica a frase corretamente para o tempo verbal pedido.</p>
 
                     <div id="quiz-container">
                         <p id="question-progress" class="text-center font-semibold text-slate-600 mb-4"></p>
-                        <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center">
-                            <p id="question-text" class="text-xl content-text"></p>
+                        <div id="question-area" class="bg-stone-50 p-6 rounded-lg border border-stone-200">
+                            <!-- Question text will be injected here -->
                         </div>
-                        <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                        <div id="options-container" class="grid grid-cols-1 gap-4 mt-6">
+                            <!-- Options will be injected here -->
                         </div>
                         <div id="feedback-container" class="mt-4 p-4 rounded-lg text-center hidden">
                             <p id="feedback-text" class="font-semibold"></p>
@@ -151,7 +149,7 @@
             const quizContainer = document.getElementById('quiz-container');
             const scoreContainer = document.getElementById('score-container');
             const questionProgress = document.getElementById('question-progress');
-            const questionText = document.getElementById('question-text');
+            const questionArea = document.getElementById('question-area'); // Changed from questionText
             const optionsContainer = document.getElementById('options-container');
             const feedbackContainer = document.getElementById('feedback-container');
             const feedbackText = document.getElementById('feedback-text');
@@ -176,17 +174,44 @@
                 }
             ];
 
-            const quizData = [
-                { question: "My mother ______ (work) in a hospital. It's her job.", answer: "works", options: ["work", "works", "worked", "will work"], explanation: "Rotina/fato (trabalho dela) e sujeito 'My mother' (she) pede '-s' no verbo no Simple Present." },
-                { question: "I ______ (visit) my grandparents last weekend.", answer: "visited", options: ["visit", "visits", "visited", "will visit"], explanation: "'Last weekend' indica uma ação concluída no passado, então usamos o Simple Past (verbo regular)." },
-                { question: "Look at those dark clouds! I think it ______ (rain) soon.", answer: "will rain", options: ["rain", "rains", "rained", "will rain"], explanation: "Previsão sobre o futuro ('I think', 'soon') usa Simple Future com 'will'." },
-                { question: "She ______ (not / go) to school yesterday because she was sick.", answer: "didn't go", options: ["don't go", "doesn't go", "didn't go", "won't go"], explanation: "Simple Past negativo usa 'didn't' + verbo base ('go'). 'Yesterday' indica passado." },
-                { question: "We ______ (study) English every Monday.", answer: "study", options: ["study", "studies", "studied", "will study"], explanation: "Rotina ('every Monday') no Simple Present. Sujeito 'We' não leva '-s'." },
-                { question: "What ______ you ______ (do) tomorrow evening?", answer: "will / do", options: ["do / do", "did / do", "will / do", "are / doing"], explanation: "'Tomorrow evening' indica futuro. Pergunta no Simple Future com 'will': Will + sujeito + verbo base." },
-                { question: "He ______ (buy) a new car two days ago. (buy - irregular verb)", answer: "bought", options: ["buyed", "buys", "bought", "will buy"], explanation: "'Two days ago' indica passado. 'Buy' é um verbo irregular, seu passado é 'bought'." },
-                { question: "They ______ (not / travel) next month because they don't have money.", answer: "won't travel", options: ["don't travel", "doesn't travel", "didn't travel", "won't travel"], explanation: "Futuro ('next month') negativo usa 'won't' (will not) + verbo base." },
-                { question: "______ your father ______ (like) coffee? (General preference)", answer: "Does / like", options: ["Do / like", "Does / like", "Did / like", "Will / like"], explanation: "Pergunta sobre preferência geral (Simple Present). Sujeito 'your father' (he) usa 'Does'." },
-                { question: "The children ______ (play) in the park when it started to rain. (Focus on the 'play' part for this question)", answer: "played", options: ["play", "plays", "played", "will play"], explanation: "A frase indica uma ação no passado. 'Played' é o passado simples de 'play'." }
+             const quizData = [
+                // Simple Present
+                { baseSentence: "I play the guitar.", targetTense: "Simple Present (He)", instruction: "Passe para o Simple Present (com 'He'):", answer: "He plays the guitar.", options: ["He play the guitar.", "He plays the guitar.", "He played the guitar."], explanation: "No Simple Present, para 'He/She/It', adicionamos -s, -es ou -ies ao verbo. 'Play' vira 'plays'." },
+                { baseSentence: "They watch movies on Fridays.", targetTense: "Simple Present (She)", instruction: "Passe para o Simple Present (com 'She'):", answer: "She watches movies on Fridays.", options: ["She watch movies on Fridays.", "She watchs movies on Fridays.", "She watches movies on Fridays."], explanation: "Para 'She', verbos terminados em -ch recebem -es: 'watches'." },
+                { baseSentence: "We study hard for exams.", targetTense: "Simple Present (It)", instruction: "Passe para o Simple Present (com 'It', ex: a machine):", answer: "It studies hard for exams.", options: ["It study hard for exams.", "It studys hard for exams.", "It studies hard for exams."], explanation: "Para 'It', verbos terminados em consoante + y, trocam -y por -ies: 'studies'." },
+                { baseSentence: "You like pizza.", targetTense: "Simple Present (Negative)", instruction: "Passe para a forma negativa no Simple Present:", answer: "You don't like pizza.", options: ["You not like pizza.", "You don't like pizza.", "You doesn't like pizza."], explanation: "Para 'You', a negativa no Simple Present é 'don't' + verbo base." },
+                { baseSentence: "He works here.", targetTense: "Simple Present (Negative)", instruction: "Passe para a forma negativa no Simple Present:", answer: "He doesn't work here.", options: ["He don't work here.", "He not works here.", "He doesn't work here."], explanation: "Para 'He', a negativa no Simple Present é 'doesn't' + verbo base (sem -s)." },
+                { baseSentence: "They live in London.", targetTense: "Simple Present (Interrogative)", instruction: "Passe para a forma interrogativa no Simple Present:", answer: "Do they live in London?", options: ["Does they live in London?", "Do they live in London?", "Are they live in London?"], explanation: "Para 'They', a interrogativa no Simple Present começa com 'Do'." },
+                { baseSentence: "She speaks French.", targetTense: "Simple Present (Interrogative)", instruction: "Passe para a forma interrogativa no Simple Present:", answer: "Does she speak French?", options: ["Do she speak French?", "Does she speaks French?", "Does she speak French?"], explanation: "Para 'She', a interrogativa no Simple Present começa com 'Does' e o verbo fica na forma base." },
+
+                // Simple Past
+                { baseSentence: "I watch a good movie.", targetTense: "Simple Past", instruction: "Passe para o <strong>Simple Past</strong>:", answer: "I watched a good movie.", options: ["I watchd a good movie.", "I watched a good movie.", "I will watch a good movie."], explanation: "Verbo regular 'watch', adicionamos -ED para o Simple Past." },
+                { baseSentence: "She studies a lot.", targetTense: "Simple Past", instruction: "Passe para o <strong>Simple Past</strong>:", answer: "She studied a lot.", options: ["She studyed a lot.", "She studiesd a lot.", "She studied a lot."], explanation: "Verbo 'study' (consoante+y) vira 'studied' no Simple Past." },
+                { baseSentence: "We plan a trip.", targetTense: "Simple Past", instruction: "Passe para o <strong>Simple Past</strong>:", answer: "We planned a trip.", options: ["We planed a trip.", "We planned a trip.", "We pland a trip."], explanation: "Verbo 'plan' (CVC curto) dobra a última consoante: 'planned'." },
+                { baseSentence: "They go to the beach.", targetTense: "Simple Past (Irregular)", instruction: "Passe para o <strong>Simple Past</strong> (verbo irregular):", answer: "They went to the beach.", options: ["They goed to the beach.", "They went to the beach.", "They gone to the beach."], explanation: "'Go' é irregular. O passado simples é 'went'." },
+                { baseSentence: "He sees his friends.", targetTense: "Simple Past (Irregular)", instruction: "Passe para o <strong>Simple Past</strong> (verbo irregular):", answer: "He saw his friends.", options: ["He seed his friends.", "He saw his friends.", "He seen his friends."], explanation: "'See' é irregular. O passado simples é 'saw'." },
+                { baseSentence: "I have a good idea.", targetTense: "Simple Past (Irregular)", instruction: "Passe para o <strong>Simple Past</strong> (verbo irregular):", answer: "I had a good idea.", options: ["I haved a good idea.", "I had a good idea.", "I has a good idea."], explanation: "'Have' é irregular. O passado simples é 'had'." },
+                { baseSentence: "You work hard.", targetTense: "Simple Past (Negative)", instruction: "Passe para a forma negativa no Simple Past:", answer: "You didn't work hard.", options: ["You not worked hard.", "You didn't worked hard.", "You didn't work hard."], explanation: "Negativa no Simple Past é 'didn't' + verbo base." },
+                { baseSentence: "She went home.", targetTense: "Simple Past (Negative - irregular)", instruction: "Passe para a forma negativa no Simple Past:", answer: "She didn't go home.", options: ["She didn't went home.", "She not went home.", "She didn't go home."], explanation: "Negativa no Simple Past é 'didn't' + verbo BASE (go)." },
+                { baseSentence: "They played cards.", targetTense: "Simple Past (Interrogative)", instruction: "Passe para a forma interrogativa no Simple Past:", answer: "Did they play cards?", options: ["Did they played cards?", "Do they played cards?", "Did they play cards?"], explanation: "Interrogativa no Simple Past é 'Did' + sujeito + verbo BASE." },
+                { baseSentence: "He bought a new phone.", targetTense: "Simple Past (Interrogative - irregular)", instruction: "Passe para a forma interrogativa no Simple Past:", answer: "Did he buy a new phone?", options: ["Did he bought a new phone?", "Does he bought a new phone?", "Did he buy a new phone?"], explanation: "Interrogativa no Simple Past é 'Did' + sujeito + verbo BASE (buy)." },
+                
+                // Simple Future (will)
+                { baseSentence: "I visit my aunt.", targetTense: "Simple Future (will)", instruction: "Passe para o <strong>Simple Future (will)</strong>:", answer: "I will visit my aunt.", options: ["I will visits my aunt.", "I will visited my aunt.", "I will visit my aunt."], explanation: "Simple Future: will + verbo base." },
+                { baseSentence: "She travels to Paris.", targetTense: "Simple Future (will)", instruction: "Passe para o <strong>Simple Future (will)</strong>:", answer: "She will travel to Paris.", options: ["She will travels to Paris.", "She will travel to Paris.", "She will traveling to Paris."], explanation: "Simple Future: will + verbo base (travel)." },
+                { baseSentence: "They study for the exam.", targetTense: "Simple Future (will - Negative)", instruction: "Passe para a forma negativa no Simple Future (will):", answer: "They won't study for the exam.", options: ["They will not studies for the exam.", "They won't study for the exam.", "They don't will study for the exam."], explanation: "Negativa no Simple Future: won't (will not) + verbo base." },
+                { baseSentence: "He will be here soon.", targetTense: "Simple Future (will - Negative)", instruction: "Passe para a forma negativa no Simple Future (will):", answer: "He won't be here soon.", options: ["He will not is here soon.", "He not will be here soon.", "He won't be here soon."], explanation: "Negativa no Simple Future: won't (will not) + verbo base (be)." },
+                { baseSentence: "You will come to the party.", targetTense: "Simple Future (will - Interrogative)", instruction: "Passe para a forma interrogativa no Simple Future (will):", answer: "Will you come to the party?", options: ["Do you will come to the party?", "Will you come to the party?", "Are you will come to the party?"], explanation: "Interrogativa no Simple Future: Will + sujeito + verbo base." },
+                { baseSentence: "It will rain tomorrow.", targetTense: "Simple Future (will - Interrogative)", instruction: "Passe para a forma interrogativa no Simple Future (will):", answer: "Will it rain tomorrow?", options: ["Does it will rain tomorrow?", "Will it rains tomorrow?", "Will it rain tomorrow?"], explanation: "Interrogativa no Simple Future: Will + sujeito + verbo base (rain)." },
+
+                // Mixed transformations
+                { baseSentence: "I eat breakfast at 7 AM.", targetTense: "Simple Past", instruction: "Frase no Simple Present. Passe para o <strong>Simple Past</strong>:", answer: "I ate breakfast at 7 AM.", options: ["I eated breakfast at 7 AM.", "I ate breakfast at 7 AM.", "I did eat breakfast at 7 AM."], explanation: "'Eat' é irregular. Passado: 'ate'." },
+                { baseSentence: "She worked late yesterday.", targetTense: "Simple Future (will)", instruction: "Frase no Simple Past. Passe para o <strong>Simple Future (will)</strong>:", answer: "She will work late tomorrow.", options: ["She will worked late tomorrow.", "She will work late tomorrow.", "She works late tomorrow."], explanation: "Simple Future: will + verbo base 'work'. Ajuste a expressão de tempo para o futuro (tomorrow)." },
+                { baseSentence: "They will help us.", targetTense: "Simple Present", instruction: "Frase no Simple Future. Passe para o <strong>Simple Present</strong>:", answer: "They help us.", options: ["They helps us.", "They help us.", "They are help us."], explanation: "Simple Present para 'They': verbo base 'help'." },
+                { baseSentence: "He watches TV every night.", targetTense: "Simple Past", instruction: "Frase no Simple Present. Passe para o <strong>Simple Past</strong>:", answer: "He watched TV last night.", options: ["He watchd TV last night.", "He did watch TV last night.", "He watched TV last night."], explanation: "Simple Past de 'watch' é 'watched'. Ajuste a expressão de tempo para o passado (last night)." },
+                { baseSentence: "We saw a great film.", targetTense: "Simple Future (will)", instruction: "Frase no Simple Past. Passe para o <strong>Simple Future (will)</strong>:", answer: "We will see a great film.", options: ["We will saw a great film.", "We will see a great film.", "We will seen a great film."], explanation: "Simple Future: will + verbo base 'see'." },
+                { baseSentence: "You will call me later.", targetTense: "Simple Past", instruction: "Frase no Simple Future. Passe para o <strong>Simple Past</strong>:", answer: "You called me yesterday.", options: ["You did call me yesterday.", "You called me yesterday.", "You call me yesterday."], explanation: "Simple Past de 'call' é 'called'. Ajuste a expressão de tempo." },
+                { baseSentence: "It rains a lot here.", targetTense: "Simple Past", instruction: "Frase no Simple Present. Passe para o <strong>Simple Past</strong>:", answer: "It rained a lot here.", options: ["It did rain a lot here.", "It rainned a lot here.", "It rained a lot here."], explanation: "Simple Past de 'rain' é 'rained'." }
             ];
             
             let currentQuestionIndex = 0;
@@ -270,22 +295,17 @@
 
                 const questionData = shuffledQuizData[currentQuestionIndex];
                 questionProgress.textContent = `Questão ${currentQuestionIndex + 1} de ${shuffledQuizData.length}`;
-                questionText.innerHTML = questionData.question.replace(/\(.*\)/g, '<span class="term-highlight">______</span>'); // More generic blank
                 
-                optionsContainer.innerHTML = '';
-                let currentOptions = [...questionData.options];
-                
-                if (!currentOptions.find(opt => opt === questionData.answer )) {
-                    const randomIndex = Math.floor(Math.random() * currentOptions.length);
-                    currentOptions[randomIndex] = questionData.answer; 
-                }
-                currentOptions = shuffleArray(currentOptions);
+                questionArea.innerHTML = `<p class="mb-2 text-left">Frase Original: <strong class="example-sentence block sm:inline">${questionData.baseSentence}</strong></p><p class="text-left mt-1">${questionData.instruction}</p>`;
 
+                optionsContainer.innerHTML = '';
+                // Ensure options are shuffled for each question display
+                let currentOptions = shuffleArray([...questionData.options]); 
 
                 currentOptions.forEach(option => {
                     const button = document.createElement('button');
                     button.innerHTML = option; 
-                    button.className = "quiz-option w-full p-3 border-2 border-stone-300 rounded-lg hover:bg-stone-200 transition-colors";
+                    button.className = "quiz-option w-full p-3 border-2 border-stone-300 rounded-lg hover:bg-stone-200 transition-colors"; // text-left is now default via style
                     button.addEventListener('click', () => selectAnswer(option, questionData.answer, questionData.explanation));
                     optionsContainer.appendChild(button);
                 });
