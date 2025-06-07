@@ -215,7 +215,7 @@
                 { question: "Qual destes fatores favorece a transmissão da cólera?", answer: "Falta de saneamento básico e água não tratada.", options: ["Excesso de vacinação.", "Poluição do ar.", "Falta de saneamento básico e água não tratada.", "Altas temperaturas."], explanation: "A cólera é causada por uma bactéria presente na água e alimentos contaminados, sendo um grande problema em locais sem saneamento." }
             ];
             
-            let currentQuestionIndex = 0;
+            let lastAnswerWasCorrect = false;
             let score = 0;
             let shuffledQuizData = [];
 
@@ -282,7 +282,6 @@
             }
 
             function startQuiz() {
-                currentQuestionIndex = 0;
                 score = 0;
                 shuffledQuizData = shuffleArray([...quizData]);
                 quizContainer.classList.remove('hidden');
@@ -294,8 +293,8 @@
                 feedbackContainer.classList.add('hidden');
                 nextQuestionBtn.classList.add('hidden');
 
-                const questionData = shuffledQuizData[currentQuestionIndex];
-                questionProgress.textContent = `Questão ${currentQuestionIndex + 1} de ${shuffledQuizData.length}`;
+                const questionData = shuffledQuizData[0];
+                questionProgress.textContent = `Questões restantes: ${shuffledQuizData.length}`;
                 
                 questionArea.innerHTML = `<p class="quiz-question-text">${questionData.question}</p>`;
 
@@ -313,14 +312,14 @@
 
             function selectAnswer(selectedOption, correctAnswer, explanation) {
                 const buttons = optionsContainer.querySelectorAll('button');
-                let isCorrect = selectedOption === correctAnswer;
+                lastAnswerWasCorrect = selectedOption === correctAnswer;
 
-                if (isCorrect) {
+                if (lastAnswerWasCorrect) {
                     score++;
                     feedbackText.textContent = '🎉 Correto!';
                     feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
                 } else {
-                    feedbackText.textContent = '🤔 Incorreto!';
+                    feedbackText.textContent = '🤔 Incorreto! Esta pergunta aparecerá novamente.';
                     feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
                 }
 
@@ -331,7 +330,7 @@
                     button.disabled = true;
                     if (button.innerHTML === correctAnswer) { 
                         button.classList.add('correct-answer');
-                    } else if (button.innerHTML === selectedOption && !isCorrect) {
+                    } else if (button.innerHTML === selectedOption && !lastAnswerWasCorrect) {
                         button.classList.add('wrong-answer');
                     }
                 });
@@ -342,14 +341,19 @@
             function showScore() {
                 quizContainer.classList.add('hidden');
                 scoreContainer.classList.remove('hidden');
-                scoreTextElement.textContent = `Você acertou ${score} de ${shuffledQuizData.length} questões!`;
-                const percentage = (shuffledQuizData.length > 0) ? (score / shuffledQuizData.length) * 100 : 0;
-                scoreBar.style.width = `${percentage}%`;
+                scoreTextElement.textContent = `Parabéns! Você respondeu todas as questões corretamente!`;
+                scoreBar.style.width = `100%`;
             }
 
             nextQuestionBtn.addEventListener('click', () => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < shuffledQuizData.length) {
+                if (lastAnswerWasCorrect) {
+                    shuffledQuizData.shift();
+                } else {
+                    const failedQuestion = shuffledQuizData.shift();
+                    shuffledQuizData.push(failedQuestion);
+                }
+
+                if (shuffledQuizData.length > 0) {
                     showQuestion();
                 } else {
                     showScore();
