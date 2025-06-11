@@ -225,6 +225,8 @@
             let score = 0;
             let shuffledQuizData = [];
 
+            let lastAnswerWasCorrect = false;
+
             function switchView(view) {
                 if (view === 'learn') {
                     learnSection.classList.remove('hidden');
@@ -321,13 +323,14 @@
             function selectAnswer(selectedOption, correctAnswer, explanation) {
                 const buttons = optionsContainer.querySelectorAll('button');
                 let isCorrect = selectedOption === correctAnswer;
+                lastAnswerWasCorrect = isCorrect;
 
                 if (isCorrect) {
                     score++;
                     feedbackText.textContent = '🎉 Correto!';
                     feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
                 } else {
-                    feedbackText.textContent = '🤔 Incorreto!';
+                    feedbackText.textContent = '🤔 Incorreto! Esta pergunta aparecerá novamente.';
                     feedbackContainer.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
                 }
 
@@ -345,7 +348,7 @@
 
                 nextQuestionBtn.classList.remove('hidden');
             }
-            
+
             function showScore() {
                 quizContainer.classList.add('hidden');
                 scoreContainer.classList.remove('hidden');
@@ -355,7 +358,15 @@
             }
 
             nextQuestionBtn.addEventListener('click', () => {
-                currentQuestionIndex++;
+                if (lastAnswerWasCorrect) {
+                    currentQuestionIndex++;
+                } else {
+                    // Move a questão errada para o final da fila
+                    const wrongQuestion = shuffledQuizData.splice(currentQuestionIndex, 1)[0];
+                    shuffledQuizData.push(wrongQuestion);
+                    // Não avança o índice, pois a próxima questão agora está na mesma posição
+                }
+
                 if (currentQuestionIndex < shuffledQuizData.length) {
                     showQuestion();
                 } else {
