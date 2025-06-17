@@ -176,19 +176,46 @@
             btnLearn.addEventListener('click', () => switchView('learn'));
             btnPractice.addEventListener('click', () => switchView('practice'));
 
-            // Quiz de polígonos
+            // 20 questões: 5 fáceis, 10 médias, 5 difíceis
             const quizData = [
+                // FÁCEIS (5)
+                {
+                    question: "Qual é a soma dos ângulos internos de um triângulo?",
+                    answer: "180°",
+                    options: ["90°", "180°", "270°", "360°"],
+                    explanation: "S = (3-2) × 180° = 1 × 180° = 180°."
+                },
+                {
+                    question: "A soma dos ângulos externos de qualquer polígono convexo é:",
+                    answer: "360°",
+                    options: ["180°", "360°", "720°", "900°"],
+                    explanation: "A soma dos ângulos externos de qualquer polígono convexo é sempre 360°."
+                },
+                {
+                    question: "Quantos lados tem um quadrado?",
+                    answer: "4",
+                    options: ["3", "4", "5", "6"],
+                    explanation: "Quadrado é um polígono de 4 lados."
+                },
+                {
+                    question: "Qual é a soma dos ângulos internos de um quadrilátero?",
+                    answer: "360°",
+                    options: ["180°", "270°", "360°", "540°"],
+                    explanation: "S = (4-2) × 180° = 2 × 180° = 360°."
+                },
+                {
+                    question: "Quantas diagonais tem um pentágono?",
+                    answer: "5",
+                    options: ["5", "7", "8", "10"],
+                    explanation: "D = 5 × (5-3)/2 = 5."
+                },
+
+                // MÉDIAS (10)
                 {
                     question: "Qual é a soma dos ângulos internos de um pentágono?",
                     answer: "540°",
                     options: ["360°", "540°", "720°", "900°"],
                     explanation: "S = (5-2) × 180° = 3 × 180° = 540°."
-                },
-                {
-                    question: "A soma dos ângulos externos de um polígono convexo de 12 lados é:",
-                    answer: "360°",
-                    options: ["2160°", "1800°", "360°", "4320°"],
-                    explanation: "A soma dos ângulos externos de qualquer polígono convexo é sempre 360°."
                 },
                 {
                     question: "Quantas diagonais tem um hexágono?",
@@ -207,12 +234,6 @@
                     answer: "8",
                     options: ["6", "8", "10", "12"],
                     explanation: "D = n(n-3)/2 = 20 → n=8."
-                },
-                {
-                    question: "Qual é a soma dos ângulos internos de um triângulo?",
-                    answer: "180°",
-                    options: ["90°", "180°", "270°", "360°"],
-                    explanation: "S = (3-2) × 180° = 1 × 180° = 180°."
                 },
                 {
                     question: "Quantos lados tem um polígono cuja soma dos ângulos internos é 900°?",
@@ -237,12 +258,63 @@
                     answer: "360°",
                     options: ["360°", "1800°", "18000°", "36000°"],
                     explanation: "A soma dos ângulos externos de qualquer polígono convexo é sempre 360°."
+                },
+                {
+                    question: "Quantos lados tem um polígono com 27 diagonais?",
+                    answer: "9",
+                    options: ["7", "8", "9", "10"],
+                    explanation: "D = n(n-3)/2 = 27 → n=9."
+                },
+                {
+                    question: "Qual é a soma dos ângulos internos de um heptágono?",
+                    answer: "900°",
+                    options: ["900°", "1080°", "1260°", "1440°"],
+                    explanation: "S = (7-2) × 180° = 5 × 180° = 900°."
+                },
+                {
+                    question: "Quantas diagonais tem um octógono?",
+                    answer: "20",
+                    options: ["12", "16", "20", "24"],
+                    explanation: "D = 8 × (8-3)/2 = 8×5/2 = 20 diagonais."
+                },
+
+                // DIFÍCEIS (5)
+                {
+                    question: "Um polígono tem 35 diagonais. Quantos lados ele possui?",
+                    answer: "10",
+                    options: ["8", "9", "10", "12"],
+                    explanation: "D = n(n-3)/2 = 35 → n=10."
+                },
+                {
+                    question: "Qual é a soma dos ângulos internos de um polígono de 15 lados?",
+                    answer: "2340°",
+                    options: ["1980°", "2160°", "2340°", "2520°"],
+                    explanation: "S = (15-2) × 180° = 13 × 180° = 2340°."
+                },
+                {
+                    question: "Quantas diagonais tem um polígono de 12 lados?",
+                    answer: "54",
+                    options: ["54", "60", "66", "72"],
+                    explanation: "D = 12 × (12-3)/2 = 12×9/2 = 54 diagonais."
+                },
+                {
+                    question: "A soma dos ângulos internos de um polígono é 2520°. Quantos lados ele tem?",
+                    answer: "16",
+                    options: ["14", "15", "16", "17"],
+                    explanation: "S = (n-2) × 180° = 2520° → n-2 = 14 → n = 16."
+                },
+                {
+                    question: "Quantos lados tem um polígono com 65 diagonais?",
+                    answer: "13",
+                    options: ["11", "12", "13", "14"],
+                    explanation: "D = n(n-3)/2 = 65 → n=13."
                 }
             ];
 
             let currentQuestionIndex = 0;
             let score = 0;
             let shuffledQuizData = [];
+            let lastAnswerWasCorrect = false;
 
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -284,13 +356,14 @@
             function selectAnswer(selectedOption, correctAnswer, explanation) {
                 const buttons = document.querySelectorAll('.quiz-option');
                 let isCorrect = selectedOption === correctAnswer;
+                lastAnswerWasCorrect = isCorrect;
 
                 if (isCorrect) {
                     score++;
                     document.getElementById('feedback-text').textContent = '🎉 Correto!';
                     document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
                 } else {
-                    document.getElementById('feedback-text').textContent = '🤔 Incorreto!';
+                    document.getElementById('feedback-text').textContent = '🤔 Incorreto! Esta pergunta aparecerá novamente.';
                     document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
                 }
 
@@ -310,7 +383,15 @@
             }
 
             document.getElementById('next-question-btn').addEventListener('click', () => {
-                currentQuestionIndex++;
+                if (lastAnswerWasCorrect) {
+                    currentQuestionIndex++;
+                } else {
+                    // Move a questão errada para o final da fila
+                    const wrongQuestion = shuffledQuizData.splice(currentQuestionIndex, 1)[0];
+                    shuffledQuizData.push(wrongQuestion);
+                    // Não avança o índice, pois a próxima questão agora está na mesma posição
+                }
+
                 if (currentQuestionIndex < shuffledQuizData.length) {
                     showQuestion();
                 } else {
@@ -331,3 +412,5 @@
             switchView('learn');
         });
     </script>
+</body>
+</html>
