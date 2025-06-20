@@ -262,46 +262,61 @@
         </button>
     </div>
     <script>
-        function printQuizQuestions() {
-            const quizData = [
-                { question: "Qual evento marcou a ascensão de Napoleão ao poder na França?", options: ["Golpe do 18 Brumário", "Revolução Industrial", "Queda da Bastilha", "Bloqueio Continental"] },
-                { question: "O que foi o Golpe do 18 Brumário?", options: ["Um golpe de Estado que levou Napoleão ao poder", "A invasão da Rússia", "A criação do Código Civil", "A assinatura da Concordata"] },
-                { question: "O que era o Bloqueio Continental?", options: ["Proibição de comércio com a Inglaterra", "Abertura dos portos franceses", "Invasão da Espanha", "Fim da escravidão"] },
-                { question: "Qual era o objetivo do Bloqueio Continental?", options: ["Enfraquecer a economia inglesa", "Expandir o território francês", "Aproximar-se da Igreja", "Criar o franco"] },
-                { question: "O Código Civil Napoleônico estabeleceu:", options: ["Igualdade perante a lei e direito à propriedade", "Fim da moeda franco", "A volta da monarquia", "Abolição da Igreja Católica"] },
-                { question: "Por que Napoleão invadiu a Rússia em 1812?", options: ["Porque a Rússia rompeu o Bloqueio Continental", "Para conquistar Moscou", "Para fugir da Inglaterra", "Para criar o franco"] },
-                { question: "O que foi consolidado durante o período napoleônico na França?", options: ["Instituições burguesas", "Privilégios da nobreza", "Monarquia absoluta", "Feudalismo"] },
-                { question: "Qual destas NÃO foi uma medida do governo de Napoleão?", options: ["Fim do Banco da França", "Criação do Código Civil", "Centralização do poder", "Incentivo à indústria"] },
-                { question: "O franco foi:", options: ["Moeda criada por Napoleão", "Um imposto", "Uma lei", "Um tratado de paz"] },
-                { question: "No campo do direito, Napoleão:", options: ["Criou o Código Civil e reorganizou a administração", "Aboliu a propriedade privada", "Restaurou a monarquia", "Enfraqueceu o Estado"] },
-                { question: "O que foi a Concordata de 1801?", options: ["Acordo entre Napoleão e a Igreja Católica", "Tratado de paz com a Inglaterra", "Bloqueio Continental", "Código Civil"] },
-                { question: "A política expansionista de Napoleão buscava:", options: ["Ampliar o território francês", "Reduzir o exército", "Aproximar-se da Inglaterra", "Abolir a moeda"] },
-                { question: "Qual foi a consequência da invasão da Rússia para as tropas napoleônicas?", options: ["Destruição do exército francês", "Vitória total", "Conquista de Moscou", "Aliança com a Inglaterra"] },
-                { question: "Como a política expansionista francesa influenciou a América espanhola?", options: ["Enfraqueceu o controle espanhol e favoreceu a independência", "Aumentou o domínio espanhol", "Trouxe a monarquia para a América", "Criou o franco nas colônias"] },
-                { question: "O domínio de territórios estrangeiros por Napoleão estimulou:", options: ["O nacionalismo nos povos dominados", "A volta do feudalismo", "A submissão total à França", "A abolição da propriedade privada"] }
-            ];
-            let html = `<h2 style="text-align:center;font-family:sans-serif;">Questões sobre a Era Napoleônica</h2><ol style="font-size:16px;font-family:sans-serif;">`;
-            quizData.forEach((q, i) => {
-                html += `<li style="margin-bottom:18px;"><strong>${i+1}.</strong> ${q.question}<br>`;
-                html += `<ul style="list-style-type: lower-alpha; margin-left:20px;">`;
-                q.options.forEach(opt => {
-                    html += `<li>${opt}</li>`;
-                });
-                html += `</ul></li>`;
-            });
-            html += `</ol>`;
-            const win = window.open('', '', 'width=800,height=900');
-            win.document.write(`
-                <html>
-                <head>
-                    <title>Questões sobre a Era Napoleônica</title>
-                </head>
-                <body>${html}</body>
-                </html>
-            `);
-            win.document.close();
-            win.print();
-        }
+function printQuizQuestions() {
+    const quizData = [
+        { question: "Qual evento marcou a ascensão de Napoleão ao poder na França?", options: ["Golpe do 18 Brumário", "Revolução Industrial", "Queda da Bastilha", "Bloqueio Continental"] },
+        { question: "O que foi o Golpe do 18 Brumário?", options: ["Um golpe de Estado que levou Napoleão ao poder", "A invasão da Rússia", "A criação do Código Civil", "A assinatura da Concordata"] },
+        { question: "O que é um golpe de Estado?", options: ["Tomada do poder de forma rápida e ilegal", "Reforma econômica", "Acordo de paz", "Mudança de moeda"] },
+        { question: "Qual era o objetivo do Bloqueio Continental?", options: ["Enfraquecer a economia inglesa", "Expandir o território francês", "Aproximar-se da Igreja", "Criar o franco"] },
+        { question: "O que era o Bloqueio Continental?", options: ["Proibição de comércio com a Inglaterra", "Abertura dos portos franceses", "Invasão da Espanha", "Fim da escravidão"] },
+        { question: "Por que o Bloqueio Continental não funcionou como Napoleão esperava?", options: ["Muitos países burlaram o bloqueio", "A Inglaterra aceitou o bloqueio", "A França ficou mais rica", "A Rússia apoiou o bloqueio"] },
+        { question: "O Código Civil Napoleônico estabeleceu:", options: ["Igualdade perante a lei e direito à propriedade", "Fim da moeda franco", "A volta da monarquia", "Abolição da Igreja Católica"] },
+        { question: "Quais são características do Código Civil Napoleônico?", options: ["Igualdade civil, propriedade privada, laicidade do Estado", "Fim da propriedade privada", "Restabelecimento dos privilégios da nobreza", "Domínio da Igreja"] },
+        { question: "Por que Napoleão invadiu a Rússia em 1812?", options: ["Porque a Rússia rompeu o Bloqueio Continental", "Para conquistar Moscou", "Para fugir da Inglaterra", "Para criar o franco"] },
+        { question: "Qual foi a principal consequência da invasão da Rússia para Napoleão?", options: ["Destruição do exército francês", "Vitória total", "Conquista de Moscou", "Aliança com a Inglaterra"] },
+        { question: "O que foi consolidado durante o período napoleônico na França?", options: ["Instituições burguesas", "Privilégios da nobreza", "Monarquia absoluta", "Feudalismo"] },
+        { question: "Quais instituições foram fortalecidas durante o governo de Napoleão?", options: ["Burguesia, propriedade privada, igualdade civil", "Nobreza, Igreja, feudalismo", "Monarquia absoluta, servidão", "Colônias americanas"] },
+        { question: "Qual destas NÃO foi uma medida do governo de Napoleão?", options: ["Fim do Banco da França", "Criação do Código Civil", "Centralização do poder", "Incentivo à indústria"] },
+        { question: "O franco foi:", options: ["Moeda criada por Napoleão", "Um imposto", "Uma lei", "Um tratado de paz"] },
+        { question: "Qual foi o impacto da criação do franco?", options: ["Estabilizou a economia francesa", "Aumentou a inflação", "Enfraqueceu o comércio", "Criou desemprego"] },
+        { question: "No campo do direito, Napoleão:", options: ["Criou o Código Civil e reorganizou a administração", "Aboliu a propriedade privada", "Restaurou a monarquia", "Enfraqueceu o Estado"] },
+        { question: "Como Napoleão reorganizou a administração pública?", options: ["Centralizou o poder e criou cargos por mérito", "Deu poder aos nobres", "Privatizou a administração", "Aumentou o poder da Igreja"] },
+        { question: "O que foi a Concordata de 1801?", options: ["Acordo entre Napoleão e a Igreja Católica", "Tratado de paz com a Inglaterra", "Bloqueio Continental", "Código Civil"] },
+        { question: "Qual foi o resultado da Concordata de 1801?", options: ["Reaproximação com a Igreja, mas controle do Estado", "Domínio total da Igreja", "Fim da religião", "Aumento do poder papal"] },
+        { question: "A política expansionista de Napoleão buscava:", options: ["Ampliar o território francês", "Reduzir o exército", "Aproximar-se da Inglaterra", "Abolir a moeda"] },
+        { question: "Como era a política expansionista de Napoleão?", options: ["Guerras e conquistas na Europa", "Acordos de paz", "Isolamento da França", "Expansão para a Ásia"] },
+        { question: "Como a política expansionista francesa influenciou a América espanhola?", options: ["Enfraqueceu o controle espanhol e favoreceu a independência", "Aumentou o domínio espanhol", "Trouxe a monarquia para a América", "Criou o franco nas colônias"] },
+        { question: "O domínio de territórios estrangeiros por Napoleão estimulou:", options: ["O nacionalismo nos povos dominados", "A volta do feudalismo", "A submissão total à França", "A abolição da propriedade privada"] },
+        { question: "O que é nacionalismo?", options: ["Sentimento de pertencimento e defesa da própria nação", "Domínio de outros povos", "Apoio ao imperialismo", "Abolição das fronteiras"] },
+        { question: "O que é imperialismo?", options: ["Domínio de territórios estrangeiros", "Independência nacional", "Fim das guerras", "Apoio à democracia"] },
+        { question: "Qual foi a relação entre o nacionalismo e o imperialismo na era napoleônica?", options: ["O domínio francês estimulou o nacionalismo nos povos dominados", "Aumentou a submissão dos povos", "Reduziu conflitos", "Fortaleceu a Igreja"] },
+        { question: "Quais foram as consequências da derrota de Napoleão na Rússia?", options: ["Enfraquecimento do governo e fim do império", "Expansão do império", "Vitória sobre a Inglaterra", "Aumento do poder militar"] },
+        { question: "Qual foi o papel do Banco da França no governo napoleônico?", options: ["Organizar e fortalecer a economia", "Aumentar impostos", "Privatizar empresas", "Reduzir o comércio"] },
+        { question: "Como Napoleão buscou legitimar seu governo?", options: ["Aproximação com a Igreja e reformas legais", "Apoio dos nobres", "Abolição da propriedade", "Fim do exército"] },
+        { question: "Qual foi o impacto das guerras napoleônicas na Europa?", options: ["Redesenharam o mapa político e estimularam o nacionalismo", "Unificaram a Europa", "Aumentaram o poder da Igreja", "Reduziram conflitos"] }
+    ];
+    let html = `<h2 style="text-align:center;font-family:sans-serif;">Questões sobre a Era Napoleônica</h2><ol style="font-size:16px;font-family:sans-serif;">`;
+    quizData.forEach((q, i) => {
+        html += `<li style="margin-bottom:18px;"><strong>${i+1}.</strong> ${q.question}<br>`;
+        html += `<ul style="list-style-type: lower-alpha; margin-left:20px;">`;
+        q.options.forEach(opt => {
+            html += `<li>${opt}</li>`;
+        });
+        html += `</ul></li>`;
+    });
+    html += `</ol>`;
+    const win = window.open('', '', 'width=800,height=900');
+    win.document.write(`
+        <html>
+        <head>
+            <title>Questões sobre a Era Napoleônica</title>
+        </head>
+        <body>${html}</body>
+        </html>
+    `);
+    win.document.close();
+    win.print();
+}
 
         document.addEventListener('DOMContentLoaded', () => {
             const learnSection = document.getElementById('learn-section');
