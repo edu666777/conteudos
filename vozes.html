@@ -255,7 +255,7 @@
             function startQuiz() {
                 currentQuestionIndex = 0;
                 score = 0;
-                shuffledQuizData = [...quizData].sort(() => Math.random() - 0.5);
+                shuffledQuizData = [...quizData]; // Mantém a ordem original, sem embaralhar
                 quizContainer.classList.remove('hidden');
                 scoreContainer.classList.add('hidden');
                 showQuestion();
@@ -267,8 +267,8 @@
 
                 const question = shuffledQuizData[currentQuestionIndex];
                 questionProgress.textContent = `Questão ${currentQuestionIndex + 1} de ${shuffledQuizData.length}`;
-                questionText.textContent = question.question;
-                
+                questionText.textContent = `${currentQuestionIndex + 1}. ${question.question}`; // Adiciona numeração
+
                 optionsContainer.innerHTML = '';
                 allOptions.forEach(option => {
                     const button = document.createElement('button');
