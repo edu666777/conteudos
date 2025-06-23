@@ -167,22 +167,38 @@
                 },
             ];
 
+            // Substitua o array quizData do seu script em vozes.html por este bloco com 30 questões variadas e explicativas
             const quizData = [
-                { question: "O vento forte derrubou a árvore antiga.", answer: "Voz Ativa", explanation: "O sujeito 'O vento forte' praticou a ação de derrubar." },
-                { question: "Venderam-se todas as casas do condomínio.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Todas as casas do condomínio foram vendidas'." },
-                { question: "A proposta foi aceita por todos os diretores.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'A proposta' sofreu a ação de ser aceita." },
-                { question: "O atleta machucou-se durante o treino.", answer: "Voz Reflexiva", explanation: "O atleta machucou a si mesmo." },
-                { question: "Os noivos se beijaram apaixonadamente.", answer: "Voz Recíproca", explanation: "A ação de beijar foi mútua entre os noivos." },
-                { question: "Nós construímos um futuro melhor.", answer: "Voz Ativa", explanation: "O sujeito 'Nós' praticou a ação de construir." },
-                { question: "Precisa-se de voluntários para o evento.", answer: "Voz Ativa", explanation: "Atenção! O 'se' é índice de indeterminação do sujeito, pois o verbo é transitivo indireto. O sujeito que pratica a ação é indeterminado." },
-                { question: "A criança se vestiu sozinha para a festa.", answer: "Voz Reflexiva", explanation: "A criança vestiu a si mesma." },
-                { question: "As cartas foram entregues pelo carteiro esta manhã.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'As cartas' sofreu a ação de ser entregue." },
-                { question: "Os jogadores se cumprimentaram antes da partida.", answer: "Voz Recíproca", explanation: "A ação de cumprimentar foi trocada entre os jogadores." },
-                { question: "Alguém esqueceu este guarda-chuva aqui.", answer: "Voz Ativa", explanation: "O sujeito 'Alguém' praticou a ação de esquecer." },
-                { question: "As regras do jogo foram explicadas claramente.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'As regras do jogo' sofreu a ação de ser explicado." },
-                { question: "O gato se escondeu debaixo da cama.", answer: "Voz Reflexiva", explanation: "O gato escondeu a si mesmo." },
-                { question: "Consertam-se relógios nesta loja.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Relógios são consertados nesta loja'." },
-                { question: "Eles se amam verdadeiramente.", answer: "Voz Recíproca", explanation: "A ação de amar é mútua entre eles." }
+                { question: "O professor corrigiu as provas rapidamente.", answer: "Voz Ativa", explanation: "O sujeito 'O professor' praticou a ação de corrigir." },
+                { question: "As provas foram corrigidas pelo professor.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'As provas' sofreu a ação de ser corrigido." },
+                { question: "Corrigiram-se as provas rapidamente.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'As provas foram corrigidas rapidamente'." },
+                { question: "O aluno se machucou durante o recreio.", answer: "Voz Reflexiva", explanation: "O aluno praticou a ação sobre si mesmo." },
+                { question: "Os amigos se abraçaram ao se encontrar.", answer: "Voz Recíproca", explanation: "A ação de abraçar foi trocada entre os amigos." },
+                { question: "A carta foi escrita por Maria.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'A carta' sofreu a ação de ser escrita." },
+                { question: "Escreveu-se uma carta ao diretor.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Uma carta foi escrita ao diretor'." },
+                { question: "O cachorro se escondeu atrás do sofá.", answer: "Voz Reflexiva", explanation: "O cachorro escondeu a si mesmo." },
+                { question: "Os irmãos se ajudaram na mudança.", answer: "Voz Recíproca", explanation: "A ação de ajudar foi mútua entre os irmãos." },
+                { question: "O diretor anunciou o resultado.", answer: "Voz Ativa", explanation: "O sujeito 'O diretor' praticou a ação de anunciar." },
+                { question: "O resultado foi anunciado pelo diretor.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'O resultado' sofreu a ação de ser anunciado." },
+                { question: "Anunciaram-se os vencedores do concurso.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Os vencedores do concurso foram anunciados'." },
+                { question: "Ela se penteou antes da festa.", answer: "Voz Reflexiva", explanation: "Ela praticou a ação sobre si mesma." },
+                { question: "Os jogadores se cumprimentaram após o jogo.", answer: "Voz Recíproca", explanation: "A ação de cumprimentar foi trocada entre os jogadores." },
+                { question: "O aluno respondeu à pergunta.", answer: "Voz Ativa", explanation: "O sujeito 'O aluno' praticou a ação de responder." },
+                { question: "A pergunta foi respondida pelo aluno.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'A pergunta' sofreu a ação de ser respondida." },
+                { question: "Responderam-se todas as questões da prova.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Todas as questões da prova foram respondidas'." },
+                { question: "Ela se olhou no espelho.", answer: "Voz Reflexiva", explanation: "Ela praticou a ação sobre si mesma." },
+                { question: "Os colegas se encontraram no parque.", answer: "Voz Recíproca", explanation: "A ação de encontrar foi mútua entre os colegas." },
+                { question: "O chefe elogiou os funcionários.", answer: "Voz Ativa", explanation: "O sujeito 'O chefe' praticou a ação de elogiar." },
+                { question: "Os funcionários foram elogiados pelo chefe.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'Os funcionários' sofreu a ação de ser elogiado." },
+                { question: "Elogiaram-se os participantes do evento.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Os participantes do evento foram elogiados'." },
+                { question: "O menino se feriu brincando.", answer: "Voz Reflexiva", explanation: "O menino praticou a ação sobre si mesmo." },
+                { question: "Os alunos se ajudaram durante o trabalho.", answer: "Voz Recíproca", explanation: "A ação de ajudar foi mútua entre os alunos." },
+                { question: "A mãe preparou o almoço.", answer: "Voz Ativa", explanation: "O sujeito 'A mãe' praticou a ação de preparar." },
+                { question: "O almoço foi preparado pela mãe.", answer: "Voz Passiva Analítica", explanation: "O sujeito 'O almoço' sofreu a ação de ser preparado." },
+                { question: "Preparou-se um almoço especial.", answer: "Voz Passiva Sintética", explanation: "Equivale a 'Um almoço especial foi preparado'." },
+                { question: "Ela se maquiou para a festa.", answer: "Voz Reflexiva", explanation: "Ela praticou a ação sobre si mesma." },
+                { question: "Os amigos se cumprimentaram na chegada.", answer: "Voz Recíproca", explanation: "A ação de cumprimentar foi mútua entre os amigos." },
+                { question: "O artista pintou o quadro.", answer: "Voz Ativa", explanation: "O sujeito 'O artista' praticou a ação de pintar." }
             ];
             
             const allOptions = ["Voz Ativa", "Voz Passiva Analítica", "Voz Passiva Sintética", "Voz Reflexiva", "Voz Recíproca"];
