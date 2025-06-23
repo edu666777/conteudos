@@ -99,7 +99,32 @@
             </section>
 
             <section id="practice-section" class="hidden">
-                <!-- Aqui você pode adicionar um quiz ou atividades práticas relacionadas ao conteúdo -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-2 text-sky-700">Teste seus conhecimentos!</h2>
+                    <p class="mb-6">Responda as questões sobre modelos agrários, Revolução Verde, agricultura orgânica e mineração.</p>
+                    <div id="quiz-container">
+                        <p id="question-progress" class="text-center font-semibold text-slate-600 mb-4"></p>
+                        <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center">
+                            <p id="question-text" class="text-xl"></p>
+                        </div>
+                        <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6"></div>
+                        <div id="feedback-container" class="mt-4 p-4 rounded-lg text-center hidden">
+                            <p id="feedback-text" class="font-semibold"></p>
+                            <p id="feedback-explanation" class="text-sm mt-1"></p>
+                        </div>
+                        <div class="text-center mt-6">
+                            <button id="next-question-btn" class="hidden py-2 px-8 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition-colors">Próxima</button>
+                        </div>
+                    </div>
+                    <div id="score-container" class="hidden text-center py-8">
+                        <h3 class="text-2xl font-bold text-sky-800">Quiz Finalizado!</h3>
+                        <p id="score-text" class="text-lg mt-2"></p>
+                        <div id="score-visual" class="w-full bg-stone-200 rounded-full h-4 my-4 overflow-hidden">
+                            <div id="score-bar" class="bg-emerald-500 h-4 rounded-full transition-all duration-500"></div>
+                        </div>
+                        <button id="restart-quiz-btn" class="mt-6 py-2 px-8 bg-sky-600 text-white font-semibold rounded-lg shadow-md hover:bg-sky-700 transition-colors">Tentar Novamente</button>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
@@ -129,6 +154,220 @@
 
             switchView('learn');
         });
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const quizData = [
+        {
+            question: "O que são os 'belts' agrícolas dos EUA?",
+            answer: "Regiões especializadas em certos cultivos",
+            options: [
+                "Regiões especializadas em certos cultivos",
+                "Áreas de mineração",
+                "Regiões de floresta",
+                "Cinturões industriais"
+            ],
+            explanation: "Os 'belts' são faixas agrícolas especializadas, como Corn Belt (milho) e Wheat Belt (trigo)."
+        },
+        {
+            question: "O que caracteriza o sistema plantation?",
+            answer: "Monocultura exportadora em grandes propriedades",
+            options: [
+                "Monocultura exportadora em grandes propriedades",
+                "Pequenas propriedades familiares",
+                "Agricultura orgânica",
+                "Produção para subsistência"
+            ],
+            explanation: "Plantation é típico da colonização, com monocultura, exportação e grandes propriedades."
+        },
+        {
+            question: "Qual é o principal objetivo da Revolução Verde?",
+            answer: "Aumentar a produção agrícola com tecnologia",
+            options: [
+                "Aumentar a produção agrícola com tecnologia",
+                "Reduzir o uso de máquinas",
+                "Promover agricultura orgânica",
+                "Diminuir a exportação"
+            ],
+            explanation: "A Revolução Verde trouxe sementes melhoradas, máquinas e insumos para aumentar a produção."
+        },
+        {
+            question: "Uma consequência negativa da Revolução Verde foi:",
+            answer: "Exclusão de pequenos produtores",
+            options: [
+                "Exclusão de pequenos produtores",
+                "Redução da produção",
+                "Aumento da biodiversidade",
+                "Menor uso de agrotóxicos"
+            ],
+            explanation: "O alto custo da tecnologia excluiu muitos pequenos agricultores."
+        },
+        {
+            question: "A agricultura orgânica se caracteriza por:",
+            answer: "Não usar agrotóxicos ou químicos sintéticos",
+            options: [
+                "Não usar agrotóxicos ou químicos sintéticos",
+                "Uso intensivo de fertilizantes químicos",
+                "Monocultura para exportação",
+                "Uso de sementes transgênicas"
+            ],
+            explanation: "A agricultura orgânica prioriza métodos naturais e não usa químicos sintéticos."
+        },
+        {
+            question: "O que é concentração fundiária?",
+            answer: "Grande parte das terras nas mãos de poucos proprietários",
+            options: [
+                "Grande parte das terras nas mãos de poucos proprietários",
+                "Distribuição igualitária de terras",
+                "Apenas pequenas propriedades",
+                "Uso coletivo da terra"
+            ],
+            explanation: "Concentração fundiária ocorre quando poucas pessoas detêm grandes áreas de terra."
+        },
+        {
+            question: "Qual é uma característica da agricultura familiar?",
+            answer: "Produção em pequena escala para subsistência",
+            options: [
+                "Produção em pequena escala para subsistência",
+                "Grandes propriedades exportadoras",
+                "Uso intensivo de máquinas",
+                "Monocultura"
+            ],
+            explanation: "A agricultura familiar geralmente é feita em pequenas propriedades e voltada para o consumo próprio."
+        },
+        {
+            question: "Sobre a mineração, marque a alternativa correta:",
+            answer: "Pode causar poluição da água e do solo",
+            options: [
+                "Pode causar poluição da água e do solo",
+                "Não gera impactos ambientais",
+                "É sempre sustentável",
+                "Só traz benefícios econômicos"
+            ],
+            explanation: "A mineração pode causar poluição, desmatamento e outros impactos ambientais."
+        },
+        {
+            question: "O que são rejeitos na mineração?",
+            answer: "Resíduos resultantes da extração mineral",
+            options: [
+                "Resíduos resultantes da extração mineral",
+                "Produtos agrícolas",
+                "Água potável",
+                "Fertilizantes naturais"
+            ],
+            explanation: "Rejeitos são resíduos que sobram após a extração dos minerais."
+        },
+        {
+            question: "Uma medida importante para prevenir desastres ambientais na mineração é:",
+            answer: "Fiscalização e reaproveitamento de rejeitos",
+            options: [
+                "Fiscalização e reaproveitamento de rejeitos",
+                "Aumentar o uso de agrotóxicos",
+                "Expandir monoculturas",
+                "Reduzir a fiscalização"
+            ],
+            explanation: "A fiscalização e o reaproveitamento de rejeitos ajudam a evitar desastres como rompimento de barragens."
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let shuffledQuizData = [];
+    let lastAnswerWasCorrect = false;
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        shuffledQuizData = shuffleArray([...quizData]);
+        document.getElementById('quiz-container').classList.remove('hidden');
+        document.getElementById('score-container').classList.add('hidden');
+        showQuestion();
+    }
+
+    function showQuestion() {
+        document.getElementById('feedback-container').classList.add('hidden');
+        document.getElementById('next-question-btn').classList.add('hidden');
+
+        const questionData = shuffledQuizData[0];
+        document.getElementById('question-progress').textContent = `Questões restantes: ${shuffledQuizData.length}`;
+        document.getElementById('question-text').innerHTML = questionData.question;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        let currentOptions = shuffleArray([...questionData.options]);
+        currentOptions.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.className = "quiz-option w-full p-3 border-2 border-stone-300 rounded-lg hover:bg-stone-200 transition-colors";
+            button.addEventListener('click', () => selectAnswer(option, questionData.answer, questionData.explanation));
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedOption, correctAnswer, explanation) {
+        const buttons = document.querySelectorAll('.quiz-option');
+        lastAnswerWasCorrect = selectedOption === correctAnswer;
+
+        if (lastAnswerWasCorrect) {
+            score++;
+            document.getElementById('feedback-text').textContent = '🎉 Correto!';
+            document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
+        } else {
+            document.getElementById('feedback-text').textContent = '🤔 Incorreto! Esta pergunta aparecerá novamente.';
+            document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
+        }
+
+        document.getElementById('feedback-explanation').innerHTML = `<strong>Explicação:</strong> ${explanation}`;
+        document.getElementById('feedback-container').classList.remove('hidden');
+
+        buttons.forEach(button => {
+            button.disabled = true;
+            if (button.textContent === correctAnswer) {
+                button.classList.add('correct-answer');
+            } else if (button.textContent === selectedOption && !lastAnswerWasCorrect) {
+                button.classList.add('wrong-answer');
+            }
+        });
+
+        document.getElementById('next-question-btn').classList.remove('hidden');
+    }
+
+    document.getElementById('next-question-btn').addEventListener('click', () => {
+        if (lastAnswerWasCorrect) {
+            shuffledQuizData.shift();
+        } else {
+            const failedQuestion = shuffledQuizData.shift();
+            shuffledQuizData.push(failedQuestion);
+        }
+
+        if (shuffledQuizData.length > 0) {
+            showQuestion();
+        } else {
+            showScore();
+        }
+    });
+
+    function showScore() {
+        document.getElementById('quiz-container').classList.add('hidden');
+        document.getElementById('score-container').classList.remove('hidden');
+        document.getElementById('score-text').textContent = `Parabéns! Você respondeu todas as questões corretamente!`;
+        document.getElementById('score-bar').style.width = `100%`;
+    }
+
+    document.getElementById('restart-quiz-btn').addEventListener('click', startQuiz);
+
+    // Ative o quiz ao clicar em "Praticar"
+    const btnPractice = document.getElementById('btn-practice');
+    btnPractice.addEventListener('click', startQuiz);
+});
     </script>
 </body>
 </html>
