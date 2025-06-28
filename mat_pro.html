@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisão Matemática 2 - 9º Ano: Polígonos e Quadriláteros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .content-text { font-size: 1rem; line-height: 1.6; }
+        .term-highlight {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-slate-800">
+    <div class="flex flex-col sm:flex-row gap-2 justify-center mt-4">
+        <a href="index.html" class="inline-block px-6 py-2 bg-stone-400 text-white font-semibold rounded-lg shadow hover:bg-stone-500 transition-colors">
+            ⬅ Voltar para o Início
+        </a>
+    </div>
+    <div class="container mx-auto max-w-3xl p-4 sm:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-sky-800">Revisão Matemática 2 - 9º Ano</h1>
+            <p class="text-slate-600 mt-2">Polígonos e Quadriláteros</p>
+        </header>
+
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-sky-700 mb-4">O que são Polígonos?</h2>
+            <p class="content-text mb-2">
+                Polígonos são figuras planas fechadas formadas apenas por segmentos de reta. Exemplos: triângulo, quadrado, pentágono, hexágono, etc.
+            </p>
+            <ul class="list-disc pl-6 content-text">
+                <li>O número de lados de um polígono é igual ao número de ângulos e vértices.</li>
+                <li>Polígonos podem ser regulares (todos os lados e ângulos iguais) ou irregulares.</li>
+            </ul>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-sky-700 mb-4">Soma dos Ângulos Internos</h2>
+            <p class="content-text mb-2">
+                A soma dos ângulos internos (<span class="term-highlight">S</span>) de um polígono com <span class="term-highlight">n</span> lados é dada por:
+            </p>
+            <p class="content-text font-semibold mb-2 text-center">
+                <span class="term-highlight">S = (n - 2) × 180°</span>
+            </p>
+            <p class="content-text mb-2">
+                Exemplo: Um hexágono (<span class="term-highlight">n = 6</span>)<br>
+                <span class="term-highlight">S = (6 - 2) × 180° = 4 × 180° = 720°</span>
+            </p>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-sky-700 mb-4">Soma dos Ângulos Externos</h2>
+            <p class="content-text mb-2">
+                A soma dos ângulos externos de qualquer polígono convexo é sempre <span class="term-highlight">360°</span>.
+            </p>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-sky-700 mb-4">Diagonais de um Polígono</h2>
+            <p class="content-text mb-2">
+                O número de diagonais (<span class="term-highlight">D</span>) de um polígono de <span class="term-highlight">n</span> lados:
+            </p>
+            <p class="content-text font-semibold mb-2 text-center">
+                <span class="term-highlight">D = n × (n - 3) / 2</span>
+            </p>
+            <p class="content-text mb-2">
+                Exemplo: Um octógono (<span class="term-highlight">n = 8</span>)<br>
+                <span class="term-highlight">D = 8 × 5 / 2 = 20</span>
+            </p>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-sky-700 mb-4">Quadriláteros</h2>
+            <p class="content-text mb-2">
+                Quadriláteros são polígonos com 4 lados. A soma dos ângulos internos é sempre <span class="term-highlight">360°</span>.
+            </p>
+            <ul class="list-disc pl-6 content-text">
+                <li><b>Paralelogramo:</b> Lados opostos paralelos e iguais, ângulos opostos iguais.</li>
+                <li><b>Retângulo:</b> Paralelogramo com 4 ângulos retos (90°).</li>
+                <li><b>Losango:</b> Paralelogramo com 4 lados iguais.</li>
+                <li><b>Quadrado:</b> Paralelogramo com 4 lados iguais e 4 ângulos retos.</li>
+                <li><b>Trapézio:</b> Apenas um par de lados paralelos (bases).</li>
+            </ul>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-sky-700 mb-4">Dicas para a Prova</h2>
+            <ul class="list-disc pl-6 content-text">
+                <li>Use as fórmulas para calcular soma dos ângulos e diagonais.</li>
+                <li>Em quadriláteros, se souber três ângulos, basta subtrair a soma deles de 360° para achar o quarto.</li>
+                <li>Quadrados, retângulos e losangos são tipos especiais de paralelogramos.</li>
+                <li>Trapézios têm apenas um par de lados paralelos.</li>
+            </ul>
