@@ -200,6 +200,8 @@
             let score = 0;
             let shuffledQuizData = [];
             let lastAnswerWasCorrect = false;
+            let questionStatus = Array(quizData.length).fill(null); // null, 'correct', 'wrong'
+            let currentQuestionIndex = 0;
 
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -209,20 +211,22 @@
                 return array;
             }
 
-            function startQuiz() {
+            function startQuiz(index = 0) {
                 score = 0;
                 shuffledQuizData = [...quizData];
+                currentQuestionIndex = index;
                 document.getElementById('quiz-container').classList.remove('hidden');
                 document.getElementById('score-container').classList.add('hidden');
-                showQuestion();
+                showQuestion(index);
+                renderQuestionButtons();
             }
 
-            function showQuestion() {
+            function showQuestion(index) {
                 document.getElementById('feedback-container').classList.add('hidden');
                 document.getElementById('next-question-btn').classList.add('hidden');
 
-                const questionData = shuffledQuizData[0];
-                document.getElementById('question-progress').textContent = `Questões restantes: ${shuffledQuizData.length}`;
+                const questionData = quizData[index];
+                document.getElementById('question-progress').textContent = `Questão ${index + 1} de ${quizData.length}`;
                 document.getElementById('question-text').innerHTML = questionData.question;
 
                 const optionsContainer = document.getElementById('options-container');
@@ -232,21 +236,23 @@
                     const button = document.createElement('button');
                     button.textContent = option;
                     button.className = "quiz-option w-full p-3 border-2 border-stone-300 rounded-lg hover:bg-stone-200 transition-colors";
-                    button.addEventListener('click', () => selectAnswer(option, questionData.answer, questionData.explanation));
+                    button.addEventListener('click', () => selectAnswer(option, questionData.answer, questionData.explanation, index));
                     optionsContainer.appendChild(button);
                 });
             }
 
-            function selectAnswer(selectedOption, correctAnswer, explanation) {
+            function selectAnswer(selectedOption, correctAnswer, explanation, index) {
                 const buttons = document.querySelectorAll('.quiz-option');
                 lastAnswerWasCorrect = selectedOption === correctAnswer;
 
                 if (lastAnswerWasCorrect) {
                     score++;
+                    questionStatus[index] = 'correct';
                     document.getElementById('feedback-text').textContent = '🎉 Correto!';
                     document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
                 } else {
-                    document.getElementById('feedback-text').textContent = '🤔 Incorreto! Esta pergunta aparecerá novamente.';
+                    questionStatus[index] = 'wrong';
+                    document.getElementById('feedback-text').textContent = '🤔 Incorreto! Tente novamente.';
                     document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
                 }
 
@@ -263,18 +269,13 @@
                 });
 
                 document.getElementById('next-question-btn').classList.remove('hidden');
+                renderQuestionButtons();
             }
 
             document.getElementById('next-question-btn').addEventListener('click', () => {
-                if (lastAnswerWasCorrect) {
-                    shuffledQuizData.shift();
-                } else {
-                    const failedQuestion = shuffledQuizData.shift();
-                    shuffledQuizData.push(failedQuestion);
-                }
-
-                if (shuffledQuizData.length > 0) {
-                    showQuestion();
+                if (currentQuestionIndex < quizData.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion(currentQuestionIndex);
                 } else {
                     showScore();
                 }
@@ -283,11 +284,38 @@
             function showScore() {
                 document.getElementById('quiz-container').classList.add('hidden');
                 document.getElementById('score-container').classList.remove('hidden');
-                document.getElementById('score-text').textContent = `Parabéns! Você respondeu todas as questões corretamente!`;
-                document.getElementById('score-bar').style.width = `100%`;
+                document.getElementById('score-text').textContent = `Você respondeu todas as questões!`;
+                document.getElementById('score-bar').style.width = `${(questionStatus.filter(s => s === 'correct').length / quizData.length) * 100}%`;
             }
 
-            document.getElementById('restart-quiz-btn').addEventListener('click', startQuiz);
+            document.getElementById('restart-quiz-btn').addEventListener('click', () => {
+                questionStatus = Array(quizData.length).fill(null);
+                startQuiz(0);
+            });
+
+            function renderQuestionButtons() {
+                let btns = '';
+                for (let i = 0; i < quizData.length; i++) {
+                    let color = 'bg-stone-200 text-slate-700';
+                    if (questionStatus[i] === 'correct') color = 'bg-emerald-500 text-white border-emerald-700';
+                    if (questionStatus[i] === 'wrong') color = 'bg-red-500 text-white border-red-700';
+                    btns += `<button class="qnav-btn px-3 py-1 m-1 rounded border font-bold ${color}" onclick="goToQuestion(${i})">${i + 1}</button>`;
+                }
+                let navDiv = document.getElementById('question-nav');
+                if (!navDiv) {
+                    navDiv = document.createElement('div');
+                    navDiv.id = 'question-nav';
+                    navDiv.className = 'flex flex-wrap justify-center mb-4';
+                    document.getElementById('quiz-container').insertBefore(navDiv, document.getElementById('question-progress'));
+                }
+                navDiv.innerHTML = btns;
+            }
+
+            // Expor função para HTML
+            window.goToQuestion = function(idx) {
+                currentQuestionIndex = idx;
+                showQuestion(idx);
+            };
 
             // Inicia na aba "Aprender"
             learnSection.classList.remove('hidden');
