@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima e Atividades Humanas - 8º Ano: Aprenda e Pratique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .tab-button.active { background-color: #0369a1; color: white; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .accordion-button.open + .accordion-content { max-height: 1000px; }
+        .quiz-option:disabled { cursor: not-allowed; opacity: 0.7; }
+        .correct-answer { background-color: #10b981 !important; color: white !important; border-color: #059669 !important; }
+        .wrong-answer { background-color: #ef4444 !important; color: white !important; border-color: #dc2626 !important; }
+        .qnav-btn { min-width: 2.5rem; }
+    </style>
+</head>
+<body class="bg-stone-100 text-slate-800">
+    <div class="flex flex-col sm:flex-row gap-2 justify-center mt-4">
+        <a href="index.html" class="inline-block px-6 py-2 bg-stone-400 text-white font-semibold rounded-lg shadow hover:bg-stone-500 transition-colors">
+            ⬅ Voltar para o Início
+        </a>
+    </div>
+    <div class="container mx-auto max-w-4xl p-4 sm:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-sky-800">Clima e Atividades Humanas - 8º Ano</h1>
+            <p class="text-slate-600 mt-2">Entenda como o clima influencia e é influenciado pelas atividades humanas!</p>
+        </header>
+        <nav class="flex justify-center mb-8 bg-white p-2 rounded-lg shadow-sm">
+            <button id="btn-learn" class="tab-button active flex-1 sm:flex-none text-center py-2 px-6 font-semibold rounded-md transition-colors duration-300">Aprender</button>
+            <button id="btn-practice" class="tab-button flex-1 sm:flex-none text-center py-2 px-6 font-semibold rounded-md transition-colors duration-300">Praticar</button>
+        </nav>
+        <main>
+            <section id="learn-section">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Clima e atividades humanas</h2>
+                    <p>O clima influencia diretamente as atividades humanas, como agricultura, lazer, vestuário e até mesmo a economia de uma região.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Afélio e Periélio</h2>
+                    <p>Afélio é o ponto da órbita da Terra mais distante do Sol; periélio é o mais próximo. Essas posições influenciam a quantidade de energia recebida, mas não determinam as estações do ano.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Estações do ano</h2>
+                    <p>As estações do ano são causadas pela inclinação do eixo da Terra e sua translação ao redor do Sol, resultando em variações de temperatura e duração dos dias.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Durações dos dias</h2>
+                    <p>A duração dos dias varia conforme a estação e a latitude. No verão, os dias são mais longos; no inverno, mais curtos.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Estações do ano no Brasil</h2>
+                    <p>No Brasil, as estações são bem definidas no Sul e Sudeste, mas menos perceptíveis no Norte e Nordeste devido ao clima tropical.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Clima ou tempo?</h2>
+                    <p>Tempo é o estado momentâneo da atmosfera (chuva, sol, vento). Clima é o conjunto de condições atmosféricas médias de uma região ao longo dos anos.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Elementos climáticos</h2>
+                    <ul class="list-disc ml-6">
+                        <li>Radiação solar</li>
+                        <li>Temperatura</li>
+                        <li>Umidade relativa do ar</li>
+                        <li>Pressão atmosférica</li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Fatores climáticos</h2>
+                    <ul class="list-disc ml-6">
+                        <li>Continentalidade e maritimidade</li>
+                        <li>Correntes marítimas</li>
+                        <li>Altitude</li>
+                        <li>Latitude</li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Zonas climáticas</h2>
+                    <p>O planeta é dividido em zonas climáticas: tropical, temperada e polar, de acordo com a latitude.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">O estudo sobre as alterações do clima</h2>
+                    <p>O clima da Terra muda ao longo do tempo devido a fatores naturais e humanos. O estudo dessas alterações é fundamental para prever impactos ambientais.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">História climática da Terra</h2>
+                    <p>Ao longo de milhões de anos, o clima da Terra passou por períodos de aquecimento e resfriamento, influenciando a vida e a paisagem do planeta.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Breve história do clima</h2>
+                    <p>Desde a era dos dinossauros até hoje, o clima mudou por causas naturais (vulcões, variações solares) e, mais recentemente, por ação humana.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Interferência do clima nas atividades humanas</h2>
+                    <p>O clima influencia hábitos, vestuário, lazer, agricultura e até a arquitetura das cidades.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Clima e agricultura</h2>
+                    <p>O tipo de clima determina as culturas agrícolas de uma região, épocas de plantio e colheita.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Interferência das atividades humanas no clima</h2>
+                    <p>Atividades humanas, como desmatamento e emissão de poluentes, alteram o clima. O desenvolvimento sustentável busca minimizar esses impactos.</p>
+                </div>
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Previsões climáticas</h2>
+                    <p>Previsões climáticas são importantes para agricultura, transporte, saúde e segurança. Elas ajudam a planejar e evitar prejuízos.</p>
+                </div>
+            </section>
+            <section id="practice-section" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-sky-700 mb-2">Praticar</h2>
+                    <p>Em breve: questões interativas sobre clima e atividades humanas!</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnLearn = document.getElementById('btn-learn');
+            const btnPractice = document.getElementById('btn-practice');
+            const learnSection = document.getElementById('learn-section');
+            const practiceSection = document.getElementById('practice-section');
+            btnLearn.addEventListener('click', () => {
+                learnSection.classList.remove('hidden');
+                practiceSection.classList.add('hidden');
+                btnLearn.classList.add('active');
+                btnPractice.classList.remove('active');
+            });
+            btnPractice.addEventListener('click', () => {
+                learnSection.classList.add('hidden');
+                practiceSection.classList.remove('hidden');
+                btnLearn.classList.remove('active');
+                btnPractice.classList.add('active');
+            });
+            learnSection.classList.remove('hidden');
+            practiceSection.classList.add('hidden');
+            btnLearn.classList.add('active');
+            btnPractice.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
