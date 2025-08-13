@@ -112,7 +112,24 @@
             <section id="practice-section" class="hidden">
                 <div class="mb-6">
                     <h2 class="text-xl font-bold text-sky-700 mb-2">Praticar</h2>
-                    <p>Em breve: questões interativas sobre clima e atividades humanas!</p>
+                    <div id="question-nav" class="flex flex-wrap gap-2 mb-4"></div>
+                    <div id="quiz-container">
+                        <div class="mb-4 text-lg font-semibold" id="question-progress"></div>
+                        <div class="mb-4" id="question-text"></div>
+                        <div id="options-container" class="flex flex-col gap-2 mb-4"></div>
+                        <div id="feedback-container" class="hidden">
+                            <div id="feedback-text" class="font-bold mb-2"></div>
+                            <div id="feedback-explanation" class="text-sm"></div>
+                        </div>
+                        <button id="next-question-btn" class="mt-4 px-6 py-2 bg-sky-700 text-white font-semibold rounded-lg shadow hover:bg-sky-800 transition-colors hidden">Próxima questão</button>
+                    </div>
+                    <div id="score-container" class="hidden mt-8 text-center">
+                        <div id="score-text" class="text-2xl font-bold mb-4"></div>
+                        <div class="w-full bg-stone-200 rounded-full h-6 mb-4">
+                            <div id="score-bar" class="bg-emerald-500 h-6 rounded-full" style="width:0%"></div>
+                        </div>
+                        <button id="restart-quiz-btn" class="px-6 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow hover:bg-emerald-700 transition-colors">Refazer Quiz</button>
+                    </div>
                 </div>
             </section>
         </main>
@@ -134,7 +151,135 @@
                 practiceSection.classList.remove('hidden');
                 btnLearn.classList.remove('active');
                 btnPractice.classList.add('active');
+                startQuiz(0);
             });
+
+            // 30 questões sobre clima e atividades humanas
+            const quizData = [
+                {question: "1. O que é clima?", answer: "Conjunto de condições médias da atmosfera", options: ["Estado momentâneo da atmosfera", "Conjunto de condições médias da atmosfera", "Temperatura do dia", "Previsão do tempo"], explanation: "Clima é o conjunto de condições médias da atmosfera de uma região ao longo dos anos."},
+                {question: "2. O que é tempo?", answer: "Estado momentâneo da atmosfera", options: ["Conjunto de condições médias da atmosfera", "Estado momentâneo da atmosfera", "Previsão do clima", "Temperatura média"], explanation: "Tempo é o estado momentâneo da atmosfera."},
+                {question: "3. O que é afélio?", answer: "Ponto mais distante da Terra em relação ao Sol", options: ["Ponto mais próximo da Terra em relação ao Sol", "Ponto mais distante da Terra em relação ao Sol", "Mudança de estação", "Inclinação do eixo terrestre"], explanation: "Afélio é o ponto mais distante da Terra em relação ao Sol."},
+                {question: "4. O que é periélio?", answer: "Ponto mais próximo da Terra em relação ao Sol", options: ["Ponto mais próximo da Terra em relação ao Sol", "Ponto mais distante da Terra em relação ao Sol", "Mudança de estação", "Inclinação do eixo terrestre"], explanation: "Periélio é o ponto mais próximo da Terra em relação ao Sol."},
+                {question: "5. O que causa as estações do ano?", answer: "Inclinação do eixo da Terra e translação", options: ["Afélio e periélio", "Inclinação do eixo da Terra e translação", "Latitude", "Correntes marítimas"], explanation: "As estações do ano são causadas pela inclinação do eixo da Terra e seu movimento de translação."},
+                {question: "6. O que influencia a duração dos dias?", answer: "Inclinação do eixo da Terra", options: ["Inclinação do eixo da Terra", "Afélio", "Periélio", "Correntes marítimas"], explanation: "A inclinação do eixo da Terra influencia a duração dos dias."},
+                {question: "7. Qual zona climática predomina no Brasil?", answer: "Tropical", options: ["Temperada", "Polar", "Tropical", "Equatorial"], explanation: "O Brasil está majoritariamente na zona tropical."},
+                {question: "8. Como as estações do ano se manifestam no Brasil?", answer: "Mais definidas no Sul e Sudeste", options: ["Mais definidas no Sul e Sudeste", "Igual em todo o país", "Mais definidas no Norte", "Não existem estações"], explanation: "No Sul e Sudeste as estações são mais perceptíveis."},
+                {question: "9. Qual elemento climático está relacionado à energia recebida do Sol?", answer: "Radiação solar", options: ["Umidade relativa do ar", "Pressão atmosférica", "Radiação solar", "Altitude"], explanation: "Radiação solar é a energia recebida do Sol."},
+                {question: "10. Qual elemento climático mede a quantidade de vapor d'água no ar?", answer: "Umidade relativa do ar", options: ["Radiação solar", "Temperatura", "Umidade relativa do ar", "Pressão atmosférica"], explanation: "Umidade relativa do ar mede o vapor d'água presente na atmosfera."},
+                {question: "11. Qual elemento climático está diretamente ligado à sensação térmica?", answer: "Temperatura", options: ["Radiação solar", "Temperatura", "Umidade relativa do ar", "Pressão atmosférica"], explanation: "Temperatura está ligada à sensação térmica."},
+                {question: "12. O que é pressão atmosférica?", answer: "Peso do ar sobre a superfície", options: ["Peso do ar sobre a superfície", "Temperatura do ar", "Umidade do ar", "Radiação solar"], explanation: "Pressão atmosférica é o peso do ar sobre a superfície terrestre."},
+                {question: "13. O que é latitude?", answer: "Distância em graus da linha do Equador", options: ["Distância em graus da linha do Equador", "Altura em relação ao mar", "Distância do mar", "Inclinação do eixo terrestre"], explanation: "Latitude é a distância em graus da linha do Equador."},
+                {question: "14. Qual fator climático está relacionado à altura em relação ao nível do mar?", answer: "Altitude", options: ["Latitude", "Altitude", "Correntes marítimas", "Radiação solar"], explanation: "Altitude é a altura em relação ao nível do mar."},
+                {question: "15. Qual fator climático está relacionado à distância do mar?", answer: "Continentalidade e maritimidade", options: ["Latitude", "Altitude", "Correntes marítimas", "Continentalidade e maritimidade"], explanation: "Continentalidade e maritimidade referem-se à influência do mar ou do continente no clima."},
+                {question: "16. Qual fator climático influencia as correntes marítimas?", answer: "Temperatura da água", options: ["Altitude", "Latitude", "Temperatura da água", "Radiação solar"], explanation: "A temperatura da água influencia as correntes marítimas."},
+                {question: "17. O que é zona climática?", answer: "Região com características climáticas semelhantes", options: ["Região com características climáticas semelhantes", "Região com mesma altitude", "Região com mesma vegetação", "Região com mesma pressão"], explanation: "Zona climática é uma região com características climáticas semelhantes."},
+                {question: "18. Quais são as principais zonas climáticas do planeta?", answer: "Tropical, temperada e polar", options: ["Tropical, temperada e polar", "Equatorial, tropical e árida", "Temperada, equatorial e polar", "Tropical, árida e polar"], explanation: "As principais zonas são tropical, temperada e polar."},
+                {question: "19. O que é história climática da Terra?", answer: "Mudanças do clima ao longo do tempo", options: ["Mudanças do clima ao longo do tempo", "Previsão do tempo", "Elementos climáticos", "Fatores climáticos"], explanation: "História climática da Terra são as mudanças do clima ao longo do tempo."},
+                {question: "20. O que pode causar alterações no clima da Terra?", answer: "Fatores naturais e humanos", options: ["Apenas fatores naturais", "Apenas fatores humanos", "Fatores naturais e humanos", "Nenhum fator"], explanation: "Alterações podem ser causadas por fatores naturais e humanos."},
+                {question: "21. O que é desenvolvimento sustentável?", answer: "Uso dos recursos sem comprometer o futuro", options: ["Uso dos recursos sem comprometer o futuro", "Exploração máxima dos recursos", "Desmatamento", "Poluição"], explanation: "Desenvolvimento sustentável é usar os recursos naturais sem comprometer as gerações futuras."},
+                {question: "22. Qual atividade humana pode alterar o clima?", answer: "Desmatamento", options: ["Desmatamento", "Lazer", "Vestimenta", "Arquitetura"], explanation: "Desmatamento altera o clima ao modificar a vegetação e o ciclo da água."},
+                {question: "23. Como o clima interfere nas atividades humanas?", answer: "Influencia hábitos, agricultura, lazer", options: ["Influencia hábitos, agricultura, lazer", "Não interfere", "Só influencia a agricultura", "Só influencia o lazer"], explanation: "O clima influencia hábitos, agricultura, lazer, vestuário, arquitetura."},
+                {question: "24. Como o clima interfere na agricultura?", answer: "Define épocas de plantio e colheita", options: ["Define épocas de plantio e colheita", "Aumenta a altitude", "Diminui a latitude", "Altera a pressão atmosférica"], explanation: "O clima define épocas de plantio e colheita na agricultura."},
+                {question: "25. O que é previsão climática?", answer: "Antecipação das condições do tempo", options: ["Antecipação das condições do tempo", "Mudança de estação", "História do clima", "Elementos climáticos"], explanation: "Previsão climática é antecipar as condições do tempo."},
+                {question: "26. Qual a importância das previsões climáticas?", answer: "Planejar atividades e evitar prejuízos", options: ["Planejar atividades e evitar prejuízos", "Aumentar a temperatura", "Diminuir a umidade", "Alterar o clima"], explanation: "Previsões climáticas ajudam a planejar e evitar prejuízos."},
+                {question: "27. O que é elemento climático?", answer: "Característica observada na atmosfera", options: ["Característica observada na atmosfera", "Fator que modifica o clima", "Zona climática", "Previsão do tempo"], explanation: "Elemento climático é uma característica observada na atmosfera."},
+                {question: "28. O que é fator climático?", answer: "Aspecto que modifica o clima", options: ["Aspecto que modifica o clima", "Característica observada na atmosfera", "Zona climática", "Previsão do tempo"], explanation: "Fator climático é um aspecto que modifica o clima."},
+                {question: "29. Qual fator climático está relacionado à posição geográfica?", answer: "Latitude", options: ["Latitude", "Altitude", "Correntes marítimas", "Radiação solar"], explanation: "Latitude está relacionada à posição geográfica."},
+                {question: "30. Como as atividades humanas podem interferir no clima?", answer: "Emissão de poluentes, desmatamento", options: ["Emissão de poluentes, desmatamento", "Construção de casas", "Prática de esportes", "Uso de roupas"], explanation: "Atividades humanas como emissão de poluentes e desmatamento interferem no clima."}
+            ];
+            let questionStatus = Array(quizData.length).fill(null); // null, 'correct', 'wrong'
+            let currentQuestionIndex = 0;
+            function startQuiz(index = 0) {
+                currentQuestionIndex = index;
+                showQuestion(index);
+                renderQuestionButtons();
+                document.getElementById('score-container').classList.add('hidden');
+                document.getElementById('quiz-container').classList.remove('hidden');
+            }
+            function showQuestion(index) {
+                document.getElementById('feedback-container').classList.add('hidden');
+                document.getElementById('next-question-btn').classList.add('hidden');
+                const questionData = quizData[index];
+                document.getElementById('question-progress').textContent = `Questão ${index + 1} de ${quizData.length}`;
+                document.getElementById('question-text').innerHTML = questionData.question;
+                const optionsContainer = document.getElementById('options-container');
+                optionsContainer.innerHTML = '';
+                questionData.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.className = "quiz-option w-full p-3 border-2 border-stone-300 rounded-lg hover:bg-stone-200 transition-colors";
+                    button.addEventListener('click', () => selectAnswer(option, questionData.answer, questionData.explanation, index));
+                    optionsContainer.appendChild(button);
+                });
+            }
+            function selectAnswer(selectedOption, correctAnswer, explanation, index) {
+                const buttons = document.querySelectorAll('.quiz-option');
+                if (selectedOption === correctAnswer) {
+                    questionStatus[index] = 'correct';
+                    document.getElementById('feedback-text').textContent = '🎉 Correto!';
+                    document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-emerald-100 border border-emerald-200 text-emerald-800';
+                } else {
+                    questionStatus[index] = 'wrong';
+                    document.getElementById('feedback-text').textContent = '🤔 Incorreto! Tente novamente.';
+                    document.getElementById('feedback-container').className = 'mt-4 p-4 rounded-lg text-center bg-red-100 border border-red-200 text-red-800';
+                }
+                document.getElementById('feedback-explanation').innerHTML = `<strong>Explicação:</strong> ${explanation}`;
+                document.getElementById('feedback-container').classList.remove('hidden');
+                buttons.forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === correctAnswer) {
+                        button.classList.add('correct-answer');
+                    } else if (button.textContent === selectedOption && selectedOption !== correctAnswer) {
+                        button.classList.add('wrong-answer');
+                    }
+                });
+                document.getElementById('next-question-btn').classList.remove('hidden');
+                renderQuestionButtons();
+            }
+            document.getElementById('next-question-btn').addEventListener('click', () => {
+                if (currentQuestionIndex < quizData.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion(currentQuestionIndex);
+                } else {
+                    if (questionStatus.every(s => s === 'correct')) {
+                        showScore();
+                    } else {
+                        alert('Você precisa acertar todas as questões para finalizar!');
+                        // Vai para a primeira errada
+                        const firstWrong = questionStatus.findIndex(s => s !== 'correct');
+                        if (firstWrong !== -1) {
+                            currentQuestionIndex = firstWrong;
+                            showQuestion(currentQuestionIndex);
+                        }
+                    }
+                }
+            });
+            function showScore() {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('score-container').classList.remove('hidden');
+                document.getElementById('score-text').textContent = `Parabéns! Você acertou todas as questões!`;
+                document.getElementById('score-bar').style.width = `100%`;
+            }
+            document.getElementById('restart-quiz-btn').addEventListener('click', () => {
+                questionStatus = Array(quizData.length).fill(null);
+                startQuiz(0);
+            });
+            function renderQuestionButtons() {
+                let btns = '';
+                for (let i = 0; i < quizData.length; i++) {
+                    let color = 'bg-stone-200 text-slate-700';
+                    if (questionStatus[i] === 'correct') color = 'bg-emerald-500 text-white border-emerald-700';
+                    if (questionStatus[i] === 'wrong') color = 'bg-red-500 text-white border-red-700';
+                    btns += `<button class=\"qnav-btn px-3 py-1 m-1 rounded border font-bold ${color}\" onclick=\"goToQuestion(${i})\">${i + 1}</button>`;
+                }
+                let navDiv = document.getElementById('question-nav');
+                navDiv.innerHTML = btns;
+            }
+            window.goToQuestion = function(idx) {
+                currentQuestionIndex = idx;
+                showQuestion(idx);
+            };
+            // Inicia na aba "Aprender"
             learnSection.classList.remove('hidden');
             practiceSection.classList.add('hidden');
             btnLearn.classList.add('active');
