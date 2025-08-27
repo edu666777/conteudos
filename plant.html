@@ -75,36 +75,106 @@
     <script>
         // Questões do quiz
         const quizData = [
+            /* Questão 1 */
             { question: "Qual é o principal processo pelo qual as plantas produzem seu alimento?", options: ["Fotossíntese", "Respiração", "Fermentação"], answer: "Fotossíntese" },
+            /* Questão 2 */
             { question: "Qual grupo de plantas não possui vasos condutores?", options: ["Briófitas", "Angiospermas", "Gimnospermas"], answer: "Briófitas" },
-            { question: "Qual dessas plantas produz frutos?", options: ["Angiospermas", "Gimnospermas", "Pteridófitas"], answer: "Angiospermas" },
+            /* Questão 3 */
+            { question: "O que diferencia as angiospermas das gimnospermas?", options: ["Produzem frutos", "Não têm sementes", "Não têm raízes"], answer: "Produzem frutos" },
+            /* Questão 4 */
             { question: "O que são sementes 'nuas'?", options: ["Sementes sem frutos", "Sementes sem casca", "Sementes sem raiz"], answer: "Sementes sem frutos" },
+            /* Questão 5 */
             { question: "Exemplo de briófita:", options: ["Musgo", "Samambaia", "Pinheiro"], answer: "Musgo" },
+            /* Questão 6 */
             { question: "Exemplo de pteridófita:", options: ["Samambaia", "Musgo", "Roseira"], answer: "Samambaia" },
+            /* Questão 7 */
             { question: "Exemplo de gimnosperma:", options: ["Pinheiro", "Mangueira", "Musgo"], answer: "Pinheiro" },
+            /* Questão 8 */
             { question: "Exemplo de angiosperma:", options: ["Roseira", "Pinheiro", "Samambaia"], answer: "Roseira" },
+            /* Questão 9 */
             { question: "Função das raízes:", options: ["Fixar e absorver água", "Produzir frutos", "Realizar fotossíntese"], answer: "Fixar e absorver água" },
+            /* Questão 10 */
             { question: "Função das folhas:", options: ["Fotossíntese", "Absorver água", "Produzir sementes"], answer: "Fotossíntese" },
+            /* Questão 11 */
             { question: "Qual grupo tem flores?", options: ["Angiospermas", "Briófitas", "Gimnospermas"], answer: "Angiospermas" },
+            /* Questão 12 */
             { question: "Qual grupo não tem sementes?", options: ["Pteridófitas", "Angiospermas", "Gimnospermas"], answer: "Pteridófitas" },
+            /* Questão 13 */
             { question: "Qual grupo tem sementes protegidas por frutos?", options: ["Angiospermas", "Gimnospermas", "Briófitas"], answer: "Angiospermas" },
+            /* Questão 14 */
             { question: "Qual grupo tem sementes expostas?", options: ["Gimnospermas", "Angiospermas", "Pteridófitas"], answer: "Gimnospermas" },
+            /* Questão 15 */
             { question: "Qual parte da planta realiza fotossíntese?", options: ["Folha", "Raiz", "Caule"], answer: "Folha" },
+            /* Questão 16 */
             { question: "Qual parte fixa a planta ao solo?", options: ["Raiz", "Folha", "Flor"], answer: "Raiz" },
+            /* Questão 17 */
             { question: "Qual parte transporta água e nutrientes?", options: ["Caule", "Folha", "Raiz"], answer: "Caule" },
+            /* Questão 18 */
             { question: "Qual parte protege a semente nas angiospermas?", options: ["Fruto", "Flor", "Raiz"], answer: "Fruto" },
+            /* Questão 19 */
             { question: "Qual grupo é considerado o mais evoluído?", options: ["Angiospermas", "Briófitas", "Pteridófitas"], answer: "Angiospermas" },
+            /* Questão 20 */
             { question: "Qual grupo é o mais simples?", options: ["Briófitas", "Angiospermas", "Gimnospermas"], answer: "Briófitas" },
+            /* Questão 21 */
             { question: "Qual grupo tem vasos condutores, mas não sementes?", options: ["Pteridófitas", "Angiospermas", "Briófitas"], answer: "Pteridófitas" },
+            /* Questão 22 */
             { question: "Qual grupo tem sementes, mas não frutos?", options: ["Gimnospermas", "Angiospermas", "Briófitas"], answer: "Gimnospermas" },
-            { question: "Qual grupo tem sementes e frutos?", options: ["Angiospermas", "Gimnospermas", "Pteridófitas"], answer: "Angiospermas" },
+            /* Questão 23 */
             { question: "Qual grupo não tem raízes verdadeiras?", options: ["Briófitas", "Angiospermas", "Gimnospermas"], answer: "Briófitas" },
+            /* Questão 24 */
             { question: "Qual grupo tem folhas bem desenvolvidas?", options: ["Pteridófitas", "Briófitas", "Gimnospermas"], answer: "Pteridófitas" },
+            /* Questão 25 */
             { question: "Qual grupo tem flores vistosas?", options: ["Angiospermas", "Gimnospermas", "Briófitas"], answer: "Angiospermas" },
+            /* Questão 26 */
             { question: "Qual grupo é predominante nas florestas tropicais?", options: ["Angiospermas", "Gimnospermas", "Briófitas"], answer: "Angiospermas" },
+            /* Questão 27 */
             { question: "Qual grupo é predominante nas florestas de coníferas?", options: ["Gimnospermas", "Angiospermas", "Pteridófitas"], answer: "Gimnospermas" },
+            /* Questão 28 */
             { question: "Qual grupo é encontrado em ambientes úmidos?", options: ["Briófitas", "Angiospermas", "Gimnospermas"], answer: "Briófitas" },
-            { question: "Qual grupo tem maior diversidade de espécies?", options: ["Angiospermas", "Gimnospermas", "Pteridófitas"], answer: "Angiospermas" }
+            /* Questão 29 */
+            { question: "Qual grupo tem maior diversidade de espécies?", options: ["Angiospermas", "Gimnospermas", "Pteridófitas"], answer: "Angiospermas" },
+            /* Questão 30 */
+            { question: "Qual parte da planta é responsável pela reprodução?", options: ["Flor", "Raiz", "Caule"], answer: "Flor" }
+                /* Questão 31 */
+                { question: "O que é clorofila?", options: ["Pigmento verde das plantas", "Tipo de raiz", "Hormônio vegetal"], answer: "Pigmento verde das plantas" },
+                /* Questão 32 */
+                { question: "Qual parte da planta absorve água do solo?", options: ["Raiz", "Folha", "Flor"], answer: "Raiz" },
+                /* Questão 33 */
+                { question: "O que é fotossíntese?", options: ["Processo de produção de alimento", "Processo de respiração", "Processo de reprodução"], answer: "Processo de produção de alimento" },
+                /* Questão 34 */
+                { question: "Qual grupo de plantas depende da água para reprodução?", options: ["Briófitas", "Angiospermas", "Gimnospermas"], answer: "Briófitas" },
+                /* Questão 35 */
+                { question: "O que são plantas vasculares?", options: ["Possuem vasos condutores", "Não possuem sementes", "Produzem frutos"], answer: "Possuem vasos condutores" },
+                /* Questão 36 */
+                { question: "Qual função do caule?", options: ["Transportar água e nutrientes", "Realizar fotossíntese", "Produzir sementes"], answer: "Transportar água e nutrientes" },
+                /* Questão 37 */
+                { question: "O que é germinação?", options: ["Desenvolvimento da semente", "Produção de frutos", "Crescimento das folhas"], answer: "Desenvolvimento da semente" },
+                /* Questão 38 */
+                { question: "Qual grupo de plantas tem maior porte?", options: ["Gimnospermas", "Briófitas", "Pteridófitas"], answer: "Gimnospermas" },
+                /* Questão 39 */
+                { question: "O que são plantas perenes?", options: ["Vivem vários anos", "Morrem após um ano", "Não produzem sementes"], answer: "Vivem vários anos" },
+                /* Questão 40 */
+                { question: "Qual parte da planta é responsável pela troca de gases?", options: ["Folha", "Raiz", "Flor"], answer: "Folha" },
+                /* Questão 41 */
+                { question: "O que é polinização?", options: ["Transporte de pólen", "Crescimento da raiz", "Produção de frutos"], answer: "Transporte de pólen" },
+                /* Questão 42 */
+                { question: "Qual grupo de plantas tem sementes dispersas pelo vento?", options: ["Gimnospermas", "Angiospermas", "Briófitas"], answer: "Gimnospermas" },
+                /* Questão 43 */
+                { question: "O que é fruto?", options: ["Estrutura que protege a semente", "Parte da raiz", "Pigmento da folha"], answer: "Estrutura que protege a semente" },
+                /* Questão 44 */
+                { question: "Qual grupo de plantas é mais comum em ambientes áridos?", options: ["Angiospermas", "Briófitas", "Pteridófitas"], answer: "Angiospermas" },
+                /* Questão 45 */
+                { question: "O que são plantas anuais?", options: ["Vivem apenas um ano", "Vivem vários anos", "Não produzem frutos"], answer: "Vivem apenas um ano" },
+                /* Questão 46 */
+                { question: "Qual parte da planta pode armazenar nutrientes?", options: ["Raiz", "Folha", "Flor"], answer: "Raiz" },
+                /* Questão 47 */
+                { question: "O que é uma planta medicinal?", options: ["Usada para tratar doenças", "Produz apenas frutos", "Não faz fotossíntese"], answer: "Usada para tratar doenças" },
+                /* Questão 48 */
+                { question: "Qual grupo de plantas tem maior variedade de flores?", options: ["Angiospermas", "Gimnospermas", "Briófitas"], answer: "Angiospermas" },
+                /* Questão 49 */
+                { question: "O que é raiz tuberosa?", options: ["Raiz que armazena nutrientes", "Raiz que cresce para cima", "Raiz que produz frutos"], answer: "Raiz que armazena nutrientes" },
+                /* Questão 50 */
+                { question: "Qual parte da planta pode ser comestível?", options: ["Folha, raiz, caule, fruto", "Apenas folha", "Apenas fruto"], answer: "Folha, raiz, caule, fruto" }
         ];
 
         let currentQuestionIndex = 0;
