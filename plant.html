@@ -9,12 +9,28 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .tab-button.active { background-color: #0369a1; color: white; }
-        .qnav-btn { min-width: 2.5rem; transition: background 0.2s, color 0.2s; }
-        .qnav-btn.correct { background-color: #10b981 !important; color: white !important; }
-        .qnav-btn.wrong { background-color: #ef4444 !important; color: white !important; }
+        .qnav-btn { min-width: 2.5rem; background-color: #222; color: #eee; border-color: #444; transition: background 0.2s, color 0.2s; }
+        .qnav-btn:hover { background-color: #333; color: #fff; }
+        .qnav-btn.correct { background-color: #10b981 !important; color: #fff !important; border-color: #059669 !important; }
+        .qnav-btn.wrong { background-color: #ef4444 !important; color: #fff !important; border-color: #dc2626 !important; }
+        .quiz-option {
+            background-color: #222;
+            color: #eee;
+            border: 2px solid #444;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .quiz-option:hover:not(:disabled) {
+            background-color: #333;
+            color: #fff;
+            border-color: #10b981;
+        }
         .quiz-option:disabled { cursor: not-allowed; opacity: 0.7; }
-        .correct-answer { background-color: #10b981 !important; color: white !important; border-color: #059669 !important; }
-        .wrong-answer { background-color: #ef4444 !important; color: white !important; border-color: #dc2626 !important; }
+        .correct-answer { background-color: #10b981 !important; color: #fff !important; border-color: #059669 !important; }
+        .wrong-answer { background-color: #ef4444 !important; color: #fff !important; border-color: #dc2626 !important; }
     </style>
 </head>
 <body class="bg-stone-100 text-slate-800">
@@ -60,13 +76,13 @@
                 </div>
             </section>
             <section id="practice-section" class="hidden">
-                <div class="bg-white rounded-lg shadow p-6 mb-8">
-                    <h2 class="text-2xl font-bold mb-4 text-green-700">Pratique: Questões sobre plantas</h2>
+                <div class="bg-black rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-2xl font-bold mb-4 text-green-300">Pratique: Questões sobre plantas</h2>
                     <div id="qnav" class="flex flex-wrap gap-2 justify-center mb-6"></div>
                     <div id="quiz-container" class="flex flex-col items-center"></div>
                     <div class="flex justify-center gap-4 mt-6">
-                        <button id="btn-next" class="px-6 py-2 bg-green-700 text-white font-semibold rounded-lg shadow hover:bg-green-800 transition-colors">Próxima</button>
-                        <button id="btn-restart" class="px-6 py-2 bg-stone-400 text-white font-semibold rounded-lg shadow hover:bg-stone-500 transition-colors">Reiniciar</button>
+                        <button id="btn-next" class="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-400 transition-colors">Próxima</button>
+                        <button id="btn-restart" class="px-6 py-2 bg-gray-700 text-white font-semibold rounded-lg shadow hover:bg-gray-500 transition-colors">Reiniciar</button>
                     </div>
                 </div>
             </section>
